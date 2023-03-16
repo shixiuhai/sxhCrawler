@@ -69,12 +69,15 @@ class KJ:
             'pageSize': '20',
             '_': '%s'%(int(time.time())*1000),
         }
-        return json.loads(
-                requests.get(url="https://widget.1688.com/front/getJsonComponent.json",
-                params=params,headers=self.headers).text.
-                replace("jQuery36008223910503795178_1678971098945","").replace("(","").
-                replace(")","").replace(" ","").replace("，",","))["content"]["result"]
-    
+        try:
+            return json.loads(
+                    requests.get(url="https://widget.1688.com/front/getJsonComponent.json",
+                    params=params,headers=self.headers).text.
+                    replace("jQuery36008223910503795178_1678971098945","").replace("(","").
+                    replace(")","").replace(" ","").replace("，",","))["content"]["result"]
+        except Exception as error:
+            logging.error("获取该页商品数据出现错误，错误是%s"%error)
+            return []
     # 入数据库
     def insertMysql(self,sql:str)->None:
         try:
