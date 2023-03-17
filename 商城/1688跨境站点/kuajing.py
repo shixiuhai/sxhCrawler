@@ -25,7 +25,11 @@ class KJ:
         self.user=user
         self.passwd=passwd
         self.database=database
-        self.db=pymysql.connect(host=self.host,port=int(self.port),user=self.user,passwd=self.passwd,database=self.database)
+        try:
+            self.db=pymysql.connect(host=self.host,port=int(self.port),user=self.user,passwd=self.passwd,database=self.database)
+        except Exception as error:
+            print("连接数据库失败")
+            logging.error("连接数据库失败")
         self.parentIdList=[]
         # self.cateIdList=[]
     # 如果列表没有元素会返回 ""
