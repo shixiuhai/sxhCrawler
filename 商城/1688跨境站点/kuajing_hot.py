@@ -39,13 +39,13 @@ class KJ:
         else:
             return ""
     
-    def getgoodsIndex(self,parentId:int)->list:
+    def getgoodsIndex(self,parentId:int,cateLevel:int)->list:
         params = {
             'callback': 'jQuery3600825913373777599_1678969977563',
             'namespace': 'getAliRankCateData',
             'widgetId': 'getAliRankCateData',
             'methodName': 'execute',
-            'cateLevel': '2',
+            'cateLevel': '%s'%cateLevel,
             'parentId': '%s'%parentId,
             # '_tb_token_': 'e6e1b1eaea59',
             '_': '%s'%(int(time.time())*1000),
