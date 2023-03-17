@@ -26,8 +26,10 @@ class KJ:
         self.user=user
         self.passwd=passwd
         self.database=database
-        # 标题级别初始化
-        self.cate_level=1
+        # # 标题级别初始化
+        # self.cateLevel=1
+        # # 初始化parenteid
+        # self.parentId=0
         try:
             self.db=pymysql.connect(host=self.host,port=int(self.port),user=self.user,passwd=self.passwd,database=self.database)
         except Exception as error:
@@ -36,13 +38,14 @@ class KJ:
         # 初始标题级别
         # self.cateIdList=[]
     # 如果列表没有元素会返回 ""
-    def getListOne(self,data:list)->str:
+    def get_list_one(self,data:list)->str:
         if len(data)>0:
             return data[0]
         else:
             return ""
     
-    def getgoodsIndex(self,parentId:int,cateLevel:int)->list:
+    # 获取标题
+    def get_goods_cate(self,parentId:int,cateLevel:int)->dict:
         params = {
             'callback': 'jQuery3600825913373777599_1678969977563',
             'namespace': 'getAliRankCateData',
@@ -58,19 +61,19 @@ class KJ:
                 requests.get(url="https://widget.1688.com/front/getJsonComponent.json",
                 params=params,headers=self.headers).text.
                 replace("jQuery3600825913373777599_1678969977563","").replace("(","").
-                replace(")","").replace(" ","").replace("，",","))["content"]["result"]
+                replace(")","").replace(" ","").replace("，",","))["content"]
         except Exception as error:
             logging.error("获取索引出现错误，错误是%s"%error)
-            return []
+            return {}
         
-    def getgoodsList(self,cateId:int,pageNo:int)->list:
+    def get_goods_list(self,cateLevel:int,cateId:int,pageNo:int)->dict:
         params = {
             'callback': 'jQuery36008223910503795178_1678971098945',
             'namespace': 'getAliRankDataByCateId',
             'widgetId': 'getAliRankDataByCateId',
             'methodName': 'execute',
             'cateId': '%s'%cateId,
-            'cateLevel': '1',
+            'cateLevel': '%s'%cateLevel,
             'type': 'hot',
             'pageNo': '%s'%pageNo,
             'pageSize': '20',
@@ -81,10 +84,10 @@ class KJ:
                     requests.get(url="https://widget.1688.com/front/getJsonComponent.json",
                     params=params,headers=self.headers).text.
                     replace("jQuery36008223910503795178_1678971098945","").replace("(","").
-                    replace(")","").replace(" ","").replace("，",","))["content"]["result"]
+                    replace(")","").replace(" ","").replace("，",","))["content"]
         except Exception as error:
             logging.error("获取该页商品数据出现错误，错误是%s"%error)
-            return []
+            return {}
     # 入数据库
     def insertMysql(self,sql:str)->None:
         try:
@@ -102,10 +105,28 @@ class KJ:
     
     # 爬取信息
     def spider(self):
-        # 获取一级标题信息
+        fistCateInformation=self.get_goods_cate(parentId=0,cateLevel=1)
+        if fistCateInformation!={}:
+            for fistCateItem in fistCateInformation["result"]:
+                cateName=fistCateItem["cateName"]
+                cateId=fistCateItem["cateId"]
+                print(cateName,cateId,0)
+                # sql插入一级标题
+                secondCateInformation=self.get_goods_cate(parentId=cateId,cateLevel=2)
+                if secondCateInformation!={}:
+                    for secondCateItem in secondCateInformation["result"]:
+                        cateName=secondCateItem["cateName"]
+                        cateId=secondCateItem["cateId"]
+                        print(cateName,cateId,)
+                
+                
+                
+                
+       
         
-        pass
 if __name__ == '__main__':
     obj=KJ()
-    print(obj.getgoodsIndex(4))
-    print(obj.getgoodsList(97,3))
+    # print(obj.get_goods_cate(2,2))
+    obj.spider()
+    # print(obj.getgoodsIndex(4))
+    # print(obj.get_goods_list(2,97,3))
