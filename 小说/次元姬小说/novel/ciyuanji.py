@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(filename)s %(leve
                     datefmt='%a %d %b %Y %H:%M:%S', filename='./ciyuanji.log', filemode='w')
 
 class CYJ:
-    def __init__(self,listPage=571,host="183.134.60.170",port="3306",user="root",passwd="Gttx@2020",database="push") -> None:
+    def __init__(self,listPage=571,host="127.0.0.1",port="3306",user="root",passwd="123456",database="test") -> None:
         self.headers={
             'authority': 'www.ciyuanji.com',
             'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
