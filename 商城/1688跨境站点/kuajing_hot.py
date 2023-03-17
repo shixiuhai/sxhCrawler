@@ -57,15 +57,19 @@ class KJ:
             '_': '%s'%(int(time.time())*1000),
         }
         try:
-            return json.loads(
+            return {
+                "parentId":parentId,
+                "cate":json.loads(
                 requests.get(url="https://widget.1688.com/front/getJsonComponent.json",
                 params=params,headers=self.headers).text.
                 replace("jQuery3600825913373777599_1678969977563","").replace("(","").
                 replace(")","").replace(" ","").replace("，",","))["content"]
+            }
         except Exception as error:
             logging.error("获取索引出现错误，错误是%s"%error)
             return {}
         
+    # 获取每页所有商品信息
     def get_goods_list(self,cateLevel:int,cateId:int,pageNo:int)->dict:
         params = {
             'callback': 'jQuery36008223910503795178_1678971098945',
@@ -103,27 +107,65 @@ class KJ:
             if "Can't connect to MySQL" in error.__str__():
                 self.db=pymysql.connect(host=self.host,port=int(self.port),user=self.user,passwd=self.passwd,db=self.db)
     
-    # 爬取信息
-    def spider(self):
+    # 保存标题到数据库
+    def save_cate(self):
         fistCateInformation=self.get_goods_cate(parentId=0,cateLevel=1)
         if fistCateInformation!={}:
-            for fistCateItem in fistCateInformation["result"]:
+            for fistCateItem in fistCateInformation["cate"]["result"]:
                 cateName=fistCateItem["cateName"]
                 cateId=fistCateItem["cateId"]
-                print(cateName,cateId,0)
+                parentId=fistCateInformation["parentId"]
                 # sql插入一级标题
+                
                 secondCateInformation=self.get_goods_cate(parentId=cateId,cateLevel=2)
                 if secondCateInformation!={}:
-                    for secondCateItem in secondCateInformation["result"]:
+                    for secondCateItem in secondCateInformation["cate"]["result"]:
                         cateName=secondCateItem["cateName"]
                         cateId=secondCateItem["cateId"]
-                        print(cateName,cateId,)
+                        parentId=secondCateInformation["parentId"]
+                        # print(parentId,cateId,cateName)
+                        # sql插入二级标题
                 
-                
-                
-                
-       
+                        threeCateInformation=self.get_goods_cate(parentId=cateId,cateLevel=3)
+                        if threeCateInformation!={}:
+                            for threeCateItem in threeCateInformation["cate"]["result"]:
+                                cateName=threeCateItem["cateName"]
+                                cateId=threeCateItem["cateId"]
+                                parentId=threeCateInformation["parentId"]
+                                # print(parentId,cateId,cateName)
+                                # sql插入三级标题
+                                
+                                fourCateInformation=self.get_goods_cate(parentId=cateId,cateLevel=4)
+                                if fourCateInformation!={}:
+                                    for fourCateItem in fourCateInformation["cate"]["result"]:
+                                        cateName=fourCateItem["cateName"]
+                                        cateId=fourCateItem["cateId"]
+                                        parentId=fourCateItem["parentId"]    
+                                        print(parentId,cateId,cateName)
+                                        # sql插入四级标题
+    
+    # 从mysql中查询所有的最后一级标题信息
+    def get_last_good(self):
+        pass
+    
+    # 定义一个保存到商品信息表的方法
+    def save_commodity(self):
+        pass
+    
+    # 定义一共获取商品信息表的方法
+    def get_commodity(self):
+        pass
+    
+    # 定义一共保存到商品详情表的方便
+    def save_detail(self):
+        pass
+    
+    # 爬取信息，目前考虑到最多四级目录
+    def spider(self):
+        pass
         
+                                                                         
+                
 if __name__ == '__main__':
     obj=KJ()
     # print(obj.get_goods_cate(2,2))
