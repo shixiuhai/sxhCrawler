@@ -35,7 +35,10 @@ class CYJ:
         self.user=user
         self.passwd=passwd
         self.database=database
-        self.db=pymysql.connect(host=self.host,port=int(self.port),user=self.user,passwd=self.passwd,database=self.database)
+        try:
+            self.db=pymysql.connect(host=self.host,port=int(self.port),user=self.user,passwd=self.passwd,database=self.database)
+        except Exception as error:
+            logging.error("连接mysql出现错误")
         # 列表页大小
         self.listPage=listPage
     
