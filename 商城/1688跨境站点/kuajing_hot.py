@@ -20,17 +20,20 @@ class KJ:
             'sec-fetch-site': 'same-site',
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
         }
+        # mysql初始化
         self.host=host
         self.port=port
         self.user=user
         self.passwd=passwd
         self.database=database
+        # 标题级别初始化
+        self.cate_level=1
         try:
             self.db=pymysql.connect(host=self.host,port=int(self.port),user=self.user,passwd=self.passwd,database=self.database)
         except Exception as error:
             print("连接数据库失败")
             logging.error("连接数据库失败")
-        self.parentIdList=[]
+        # 初始标题级别
         # self.cateIdList=[]
     # 如果列表没有元素会返回 ""
     def getListOne(self,data:list)->str:
@@ -99,6 +102,8 @@ class KJ:
     
     # 爬取信息
     def spider(self):
+        # 获取一级标题信息
+        
         pass
 if __name__ == '__main__':
     obj=KJ()
