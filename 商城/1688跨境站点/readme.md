@@ -196,7 +196,7 @@
   	
   -- 重要	
   -- 查询出所有商品信息表
-  SELECT
+  select table_last.* from (SELECT
     tabl1_2_3.one_cate_name,
   	tabl1_2_3.two_cate_name,
   	tabl1_2_3.three_cate_name,
@@ -249,7 +249,7 @@
   		) table1_2 
   	) tabl1_2_3
   
-  ON table1.cate_id=tabl1_2_3.cate_id;
+  ON table1.cate_id=tabl1_2_3.cate_id)  table_last where table_last.task_id=7;
   
   ```
 
