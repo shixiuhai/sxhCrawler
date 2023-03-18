@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 18/03/2023 02:10:57
+ Date: 18/03/2023 02:47:24
 */
 
 SET NAMES utf8mb4;
@@ -34,6 +34,7 @@ CREATE TABLE `1688_kj_commodity`  (
   `offer_id` int(0) NULL DEFAULT NULL COMMENT '商品id',
   `offer_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '商品详情页url',
   `created_time` datetime(0) NULL DEFAULT NULL COMMENT '数据创建时间',
+  `total_page` bigint(0) NULL DEFAULT NULL COMMENT '每页20条，总共页数',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
