@@ -6,7 +6,7 @@ import pymysql
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s-%(levelname)s-%(message)s')
 class KJ:
-    def __init__(self,host="127.0.0.1",port="3306",user="root",passwd="123456",database="push") -> None:
+    def __init__(self,host="127.0.0.1",port="3306",user="root",passwd="sxh.200008",database="goods") -> None:
         self.headers = {
             'authority': 'widget.1688.com',
             'accept': '*/*',
@@ -70,7 +70,8 @@ class KJ:
             return {}
         
     # 获取每页所有商品信息
-    def get_goods_list(self,cateLevel:int,cateId:int,pageNo:int)->dict:
+    # rankType hot rising
+    def get_goods_list(self,cateLevel:int,cateId:int,pageNo:int,rankType:str)->dict:
         params = {
             'callback': 'jQuery36008223910503795178_1678971098945',
             'namespace': 'getAliRankDataByCateId',
@@ -78,7 +79,7 @@ class KJ:
             'methodName': 'execute',
             'cateId': '%s'%cateId,
             'cateLevel': '%s'%cateLevel,
-            'type': 'hot',
+            'type': '%s'%rankType,
             'pageNo': '%s'%pageNo,
             'pageSize': '20',
             '_': '%s'%(int(time.time())*1000),
@@ -116,6 +117,11 @@ class KJ:
                 cateId=fistCateItem["cateId"]
                 parentId=fistCateInformation["parentId"]
                 # sql插入一级标题
+                createdTime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                time.sleep(0.2)
+                self.insertMysql("insert into 1688_kj_commodity_index \
+                                 (parent_id,cate_id,cate_name,created_time,cate_level)\
+                                 values ('%s','%s','%s','%s','%s')"%(parentId,cateId,cateName,createdTime,1))
                 
                 secondCateInformation=self.get_goods_cate(parentId=cateId,cateLevel=2)
                 if secondCateInformation!={}:
@@ -125,6 +131,10 @@ class KJ:
                         parentId=secondCateInformation["parentId"]
                         # print(parentId,cateId,cateName)
                         # sql插入二级标题
+                        time.sleep(0.2)
+                        self.insertMysql("insert into 1688_kj_commodity_index \
+                                 (parent_id,cate_id,cate_name,created_time,cate_level)\
+                                 values ('%s','%s','%s','%s','%s')"%(parentId,cateId,cateName,createdTime,2))
                 
                         threeCateInformation=self.get_goods_cate(parentId=cateId,cateLevel=3)
                         if threeCateInformation!={}:
@@ -134,6 +144,10 @@ class KJ:
                                 parentId=threeCateInformation["parentId"]
                                 # print(parentId,cateId,cateName)
                                 # sql插入三级标题
+                                time.sleep(0.2)
+                                self.insertMysql("insert into 1688_kj_commodity_index \
+                                                (parent_id,cate_id,cate_name,created_time,cate_level)\
+                                                values ('%s','%s','%s','%s','%s')"%(parentId,cateId,cateName,createdTime,3))
                                 
                                 fourCateInformation=self.get_goods_cate(parentId=cateId,cateLevel=4)
                                 if fourCateInformation!={}:
@@ -142,7 +156,11 @@ class KJ:
                                         cateId=fourCateItem["cateId"]
                                         parentId=fourCateItem["parentId"]    
                                         print(parentId,cateId,cateName)
+                                        time.sleep(0.2)
                                         # sql插入四级标题
+                                        self.insertMysql("insert into 1688_kj_commodity_index \
+                                                        (parent_id,cate_id,cate_name,created_time,cate_level)\
+                                                        values ('%s','%s','%s','%s','%s')"%(parentId,cateId,cateName,createdTime,4))
     
     # 从mysql中查询所有的最后一级标题信息
     def get_last_good(self):
@@ -169,6 +187,7 @@ class KJ:
 if __name__ == '__main__':
     obj=KJ()
     # print(obj.get_goods_cate(2,2))
-    obj.spider()
+    # obj.spider()
+    obj.save_cate()
     # print(obj.getgoodsIndex(4))
     # print(obj.get_goods_list(2,97,3))
