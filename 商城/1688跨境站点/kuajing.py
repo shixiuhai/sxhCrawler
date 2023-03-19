@@ -3,7 +3,7 @@ import logging
 import time
 import json
 import pymysql
-logging.basicConfig(level=logging.INFO,filename="./kuajing.txt",
+logging.basicConfig(level=logging.INFO,filename="./kuajing.log",
                     format='%(asctime)s-%(levelname)s-%(message)s')
 class KJ:
     def __init__(self,host="127.0.0.1",port="3306",user="root",passwd="sxh.200008",database="goods") -> None:
