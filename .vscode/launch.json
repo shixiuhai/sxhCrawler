@@ -1,0 +1,20 @@
+{
+    // python调试scrapy
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Module",
+            "type": "python",
+            "request": "launch",
+            "module": "scrapy",
+            "cwd": "${workspaceRoot}/splash方案/test_taobao_cookie/test_taobao_cookie/spiders",
+            "args": [
+                "crawl",
+                "taobaotest"
+            ]
+        }
+    ]
+}
