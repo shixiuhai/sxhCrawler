@@ -1,0 +1,162 @@
+Sun 19 Mar 2023 17:19:25 service.py DEBUG Started executable: `C:\Users\15256\Documents\Redis-x64-5.0.14.1\chromedriver.exe` in a child process with pid: 1584
+Sun 19 Mar 2023 17:19:25 remote_connection.py DEBUG POST http://localhost:4055/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "pageLoadStrategy": "normal", "goog:chromeOptions": {"excludeSwitches": ["enable-automation", "enable-logging"], "extensions": [], "args": ["--no-sandbox", "--disable-blink-features=AutomationControlled"]}}}}
+Sun 19 Mar 2023 17:19:25 connectionpool.py DEBUG Starting new HTTP connection (1): localhost:4055
+Sun 19 Mar 2023 17:19:26 connectionpool.py DEBUG http://localhost:4055 "POST /session HTTP/1.1" 200 788
+Sun 19 Mar 2023 17:19:26 remote_connection.py DEBUG Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"111.0.5563.65","chrome":{"chromedriverVersion":"110.0.5481.77 (65ed616c6e8ee3fe0ad64fe83796c020644d42af-refs/branch-heads/5481@{#839})","userDataDir":"C:\\Users\\15256\\AppData\\Local\\Temp\\scoped_dir1584_1767130697"},"goog:chromeOptions":{"debuggerAddress":"localhost:4059"},"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"windows","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:virtualAuthenticators":true},"sessionId":"44a793aa2a1b7895be940397f697bde1"}} | headers=HTTPHeaderDict({'Content-Length': '788', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:26 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:26 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/url {"url": "https://www.1688.com/"}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/url HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1694769484, "httpOnly": false, "name": "tfstk", "path": "/", "sameSite": "Lax", "secure": false, "value": "c_blBN1SSg-WwrzdhTT7SbfPJRxPZrZyFw7VuSMeonzl21_ViPiqbvHaiLe_UD1.."}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1679822287, "httpOnly": false, "name": "is_identity", "path": "/", "sameSite": "Lax", "secure": false, "value": "buyer"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1679822287, "httpOnly": false, "name": "aliwwLastRefresh", "path": "/", "sameSite": "Lax", "secure": false, "value": "1679217487732"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": false, "name": "mwb", "path": "/", "sameSite": "Lax", "secure": false, "value": "ng"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1679822286, "httpOnly": false, "name": "firstRefresh", "path": "/", "sameSite": "Lax", "secure": false, "value": "1679217486703"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1679289481, "httpOnly": false, "name": "last_mid", "path": "/", "sameSite": "None", "secure": true, "value": "b2b-345151005463a30"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": false, "name": "__cn_logon_id__", "path": "/", "sameSite": "Lax", "secure": false, "value": "tb80111606"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": true, "name": "uc4", "path": "/", "sameSite": "None", "secure": true, "value": "id4=0%40UgP5GPE5h%2FvopPV87sbnzf8cqwZE&nk4=0%40FY4GsvRHfRNKE%2BdeKAb%2BBqEZanqS"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1679224688, "httpOnly": false, "name": "_show_user_unbind_div_", "path": "/", "sameSite": "Lax", "secure": false, "value": "b2b-345151005463a30_false"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": false, "name": "unb", "path": "/", "sameSite": "None", "secure": true, "value": "3451510054"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1694769484, "httpOnly": false, "name": "l", "path": "/", "sameSite": "Lax", "secure": false, "value": "fBrWhCeVNNpWHQCkBOfwFurza77tIIRAguPzaNbMi9fPOB7p5chdW1MyNpA9CnGVFsvyR3o-P8F6BeYBqsVidj4KuQIXdpMmngzr905.."}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": false, "name": "__mwb_logon_id__", "path": "/", "sameSite": "Lax", "secure": false, "value": "tb80111606"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1679822266, "httpOnly": false, "name": "_m_h5_tk", "path": "/", "sameSite": "None", "secure": true, "value": "98162fe66cb0984c93172076f87831d1_1679224666310"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1713777481, "httpOnly": false, "name": "ali_apache_track", "path": "/", "sameSite": "Lax", "secure": false, "value": "c_mid=b2b-345151005463a30|c_lid=tb80111606|c_ms=1"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": true, "name": "csg", "path": "/", "sameSite": "None", "secure": true, "value": "4985d3d7"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": true, "name": "sgcookie", "path": "/", "sameSite": "None", "secure": true, "value": "E1008MgSWIwrwokjGCvsNl1u2zn73%2B50Bu2ldISMI7M286O0ny0r1f7oql70hw%2FBvucf5ATdjHf6WJi7Zqz%2FhDMp0MCPBiGxGRc8L62JRncCOUg%3D"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": true, "name": "cookie17", "path": "/", "sameSite": "None", "secure": true, "value": "UNQyQxMqUdx1nQ%3D%3D"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1679224688, "httpOnly": false, "name": "_show_force_unbind_div_", "path": "/", "sameSite": "Lax", "secure": false, "value": "b2b-345151005463a30_false"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": true, "name": "cookie1", "path": "/", "sameSite": "None", "secure": true, "value": "U%2BGWz3AsFiX%2BQb4KVw17j51DAUP9jxfiN9Dd%2FomAUJ8%3D"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1713777491, "httpOnly": false, "name": "alicnweb", "path": "/", "sameSite": "Lax", "secure": false, "value": "touch_tb_at%3D1679217471072%7Clastlogonid%3Dtb80111606"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": false, "name": "_csrf_token", "path": "/", "sameSite": "None", "secure": true, "value": "1679217481442"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1679224689, "httpOnly": false, "name": "__rn_alert__", "path": "/", "sameSite": "Lax", "secure": false, "value": "false"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1679224688, "httpOnly": false, "name": "_show_sys_unbind_div_", "path": "/", "sameSite": "Lax", "secure": false, "value": "b2b-345151005463a30_false"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1679224688, "httpOnly": false, "name": "_is_show_loginId_change_block_", "path": "/", "sameSite": "Lax", "secure": false, "value": "b2b-345151005463a30_false"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1713777468, "httpOnly": false, "name": "cna", "path": "/", "sameSite": "None", "secure": true, "value": "O8GdHMyBOXICASe8CIUukYlA"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": false, "name": "__cn_logon__", "path": "/", "sameSite": "Lax", "secure": false, "value": "true"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1710753481, "httpOnly": false, "name": "lid", "path": "/", "sameSite": "None", "secure": true, "value": "tb80111606"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1679303867, "httpOnly": false, "name": "xlly_s", "path": "/", "sameSite": "None", "secure": true, "value": "1"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": false, "name": "sg", "path": "/", "sameSite": "None", "secure": true, "value": "641"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": false, "name": "_tb_token_", "path": "/", "sameSite": "None", "secure": true, "value": "7e85b9b509e56"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": false, "name": "t", "path": "/", "sameSite": "None", "secure": true, "value": "d2b7a2195096dbb3e2263c7c904aa947"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1694769486, "httpOnly": false, "name": "isg", "path": "/", "sameSite": "None", "secure": true, "value": "BGho0Zq6mB2Nt7SZAbKVL0DhOVZ6kcyb9-TjOSKZtOPWfQjnyqGcK_73cRWNzYRz"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": false, "name": "ali_apache_tracktmp", "path": "/", "sameSite": "Lax", "secure": false, "value": "c_w_signed=Y"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1679822266, "httpOnly": false, "name": "_m_h5_tk_enc", "path": "/", "sameSite": "None", "secure": true, "value": "2d655479d2b87923811cfd4e78f933b2"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "expiry": 1679822286, "httpOnly": false, "name": "lastRefresh", "path": "/", "sameSite": "Lax", "secure": false, "value": "1679217486703"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": false, "name": "_nk_", "path": "/", "sameSite": "None", "secure": true, "value": "tb80111606"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/cookie {"cookie": {"domain": ".1688.com", "httpOnly": true, "name": "cookie2", "path": "/", "sameSite": "None", "secure": true, "value": "1e276dc2818a8969861af51fe3c7f46a"}}
+Sun 19 Mar 2023 17:19:33 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/cookie HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:33 remote_connection.py DEBUG Finished Request
+Sun 19 Mar 2023 17:19:36 remote_connection.py DEBUG POST http://localhost:4055/session/44a793aa2a1b7895be940397f697bde1/url {"url": "https://www.1688.com/"}
+Sun 19 Mar 2023 17:19:41 connectionpool.py DEBUG http://localhost:4055 "POST /session/44a793aa2a1b7895be940397f697bde1/url HTTP/1.1" 200 14
+Sun 19 Mar 2023 17:19:41 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Sun 19 Mar 2023 17:19:41 remote_connection.py DEBUG Finished Request
