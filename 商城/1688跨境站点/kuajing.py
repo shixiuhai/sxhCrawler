@@ -194,10 +194,10 @@ class KJ:
                                         values ('%s','%s','%s','%s','%s','%s')"%(parentId,cateId,cateName,createdTime,4,taskId))
     
     # 从mysql中查询所有的最后一级标题信息
-    def get_last_cate(self)->list:
-        result=self.select_mysql("""SELECT id,cate_name,cate_id,cate_level,task_id \
+    def get_last_cate(self,taskId)->list:
+        result=self.select_mysql("SELECT id,cate_name,cate_id,cate_level,task_id \
                                 FROM 1688_kj_commodity_index  WHERE cate_id NOT IN \
-                                ( SELECT parent_id FROM 1688_kj_commodity_index)""")
+                                ( SELECT parent_id FROM 1688_kj_commodity_index) and task_id=%s"%taskId)
         return result
         
     # 定义一共创建任务的方法
@@ -336,7 +336,7 @@ class KJ:
         # 保存所有标题信息到index表
         self.save_cate(taskId)
         # 从index获取最后一级标题信息
-        lastCateList=self.get_last_cate()
+        lastCateList=self.get_last_cate(taskId)
         if len(lastCateList)!=0:
             for lastCateItem in lastCateList:
                 # id,cate_name,cate_id,cate_level,task_id
@@ -351,6 +351,7 @@ class KJ:
                                         
 if __name__ == '__main__':
     obj=KJ()
+    # print(obj.get_last_cate(14))
     obj.created_task()
     #print(obj.get_last_cate())
     # obj.spider_goods_list(5389,'机械门锁',1033168,3,1)
