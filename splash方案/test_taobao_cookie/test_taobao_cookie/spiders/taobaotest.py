@@ -9,3 +9,4 @@ class TaobaotestSpider(scrapy.Spider):
     def parse(self, response):
         pass
         logging.info(response)
+
