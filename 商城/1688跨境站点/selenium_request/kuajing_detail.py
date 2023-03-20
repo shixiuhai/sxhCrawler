@@ -19,7 +19,7 @@ class ParseLink:
                 cookies:list,
                 executablePath:str,
                 sourceUrl:str,
-                timeOut:int=3,
+                timeOut:int=5,
                 EnableLinuxRoot=False,
                 Enableincogniton=False,
                 EnableHeadless=False,
@@ -62,7 +62,7 @@ class ParseLink:
         if sourceUrl=="":
             self.browser.get(self.url)
         else:
-            self.browser(sourceUrl)
+            self.browser.get(sourceUrl)
             print("触发")
         # 允许使用cookies
         if EnableCookies:
