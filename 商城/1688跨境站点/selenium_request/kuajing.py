@@ -240,93 +240,107 @@ class KJ:
     
     # 定义一个爬取商品信息的方法
     def spider_goods_list(self,indexId,cateName,cateId,cateLevel,taskId):
-        # 第一类是hot 
-        resp=self.get_goods_list(cateLevel=cateLevel,cateId=cateId,pageNo=1,rankType="hot")
-        if resp!={}:
-            totalPage=int(resp["page"]["total"]/resp["page"]["pageSize"] )
-            for pageNo in range(1,totalPage+1):
-                time.sleep(0.3)
-                resp=self.get_goods_list(cateLevel=cateLevel,cateId=cateId,pageNo=pageNo,rankType="hot")
-                # 从resp里提取商品信息
-                for oneItem in resp["result"]:
+        try:
+            # 第一类是hot 
+            resp=self.get_goods_list(cateLevel=cateLevel,cateId=cateId,pageNo=1,rankType="hot")
+            if resp!={}:
+                totalPage=int(resp["page"]["total"]/resp["page"]["pageSize"] )
+                for pageNo in range(1,totalPage+1):
+                    time.sleep(0.3)
                     try:
-                        gmtCreate=oneItem["gmt_create"]
-                        offerPicurl=oneItem["offerPicUrl"]
-                        price=oneItem["price"]
-                        subject=oneItem["subject"]
-                        offerId=oneItem["offerId"]
+                        resp=self.get_goods_list(cateLevel=cateLevel,cateId=cateId,pageNo=pageNo,rankType="hot")
+                        # 从resp里提取商品信息
+                        for oneItem in resp["result"]:
+                            try:
+                                gmtCreate=oneItem["gmt_create"]
+                                offerPicurl=oneItem["offerPicUrl"]
+                                price=oneItem["price"]
+                                subject=oneItem["subject"]
+                                offerId=oneItem["offerId"]
+                            except Exception as error:
+                                logging.error("提取数据搓洗错误错误是%s"%error)
+                                continue
+                            offerUrl="https://detail.1688.com/offer/"+str(offerId)+".html"
+                            createdTime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                            totalPage=totalPage
+                            indexId=indexId
+                            cateName=cateName
+                            cateId=cateId
+                            cateLevel=cateLevel
+                            taskId=taskId
+                            rank=1
+                            item={"index_id":indexId,
+                                "cate_level":cateLevel,
+                                "cate_id":cateId,
+                                "cate_name":cateName,
+                                "gmt_create":gmtCreate,
+                                "offer_picurl":offerPicurl,
+                                "price":price,
+                                "subject":subject,
+                                "offer_id":offerId,
+                                "offer_url":offerUrl,
+                                "created_time":createdTime,
+                                "total_page":totalPage,
+                                "task_id":taskId,
+                                "rank":rank}
+                            # 存库
+                            self.save_commodity(item=item)
                     except Exception as error:
-                        logging.error("提取数据搓洗错误错误是%s"%error)
+                        print(error)
+                        logging.error("爬取页面出现错误,错误是%s"%error)
                         continue
-                    offerUrl="https://detail.1688.com/offer/"+str(offerId)+".html"
-                    createdTime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-                    totalPage=totalPage
-                    indexId=indexId
-                    cateName=cateName
-                    cateId=cateId
-                    cateLevel=cateLevel
-                    taskId=taskId
-                    rank=1
-                    item={"index_id":indexId,
-                          "cate_level":cateLevel,
-                          "cate_id":cateId,
-                          "cate_name":cateName,
-                          "gmt_create":gmtCreate,
-                          "offer_picurl":offerPicurl,
-                          "price":price,
-                          "subject":subject,
-                          "offer_id":offerId,
-                          "offer_url":offerUrl,
-                          "created_time":createdTime,
-                          "total_page":totalPage,
-                          "task_id":taskId,
-                          "rank":rank}
-                    # 存库
-                    self.save_commodity(item=item)
-        
-        # 第二类是rising
-        resp=self.get_goods_list(cateLevel=cateLevel,cateId=cateId,pageNo=1,rankType="rising")
-        if resp!={}:
-            totalPage=int(resp["page"]["total"]/resp["page"]["pageSize"] )
-            for pageNo in range(1,totalPage+1):
-                time.sleep(0.3)
-                resp=self.get_goods_list(cateLevel=cateLevel,cateId=cateId,pageNo=pageNo,rankType="rising")
-                # 从resp里提取商品信息
-                for oneItem in resp["result"]:
+            
+            # 第二类是rising
+            resp=self.get_goods_list(cateLevel=cateLevel,cateId=cateId,pageNo=1,rankType="rising")
+            if resp!={}:
+                totalPage=int(resp["page"]["total"]/resp["page"]["pageSize"] )
+                for pageNo in range(1,totalPage+1):
+                    time.sleep(0.3)
                     try:
-                        gmtCreate=oneItem["gmt_create"]
-                        offerPicurl=oneItem["offerPicUrl"]
-                        price=oneItem["price"]
-                        subject=oneItem["subject"]
-                        offerId=oneItem["offerId"]
+                        resp=self.get_goods_list(cateLevel=cateLevel,cateId=cateId,pageNo=pageNo,rankType="rising")
+                        # 从resp里提取商品信息
+                        for oneItem in resp["result"]:
+                            try:
+                                gmtCreate=oneItem["gmt_create"]
+                                offerPicurl=oneItem["offerPicUrl"]
+                                price=oneItem["price"]
+                                subject=oneItem["subject"]
+                                offerId=oneItem["offerId"]
+                            except Exception as error:
+                                logging.error("提取数据搓洗错误错误是%s"%error)
+                                continue
+                            offerUrl="https://detail.1688.com/offer/"+str(offerId)+".html"
+                            createdTime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                            totalPage=totalPage
+                            indexId=indexId
+                            cateName=cateName
+                            cateId=cateId
+                            cateLevel=cateLevel
+                            taskId=taskId
+                            rank=2
+                            item={"index_id":indexId,
+                                "cate_level":cateLevel,
+                                "cate_id":cateId,
+                                "cate_name":cateName,
+                                "gmt_create":gmtCreate,
+                                "offer_picurl":offerPicurl,
+                                "price":price,
+                                "subject":subject,
+                                "offer_id":offerId,
+                                "offer_url":offerUrl,
+                                "created_time":createdTime,
+                                "total_page":totalPage,
+                                "task_id":taskId,
+                                "rank":rank}
+                            # 存库
+                            self.save_commodity(item=item)
                     except Exception as error:
-                        logging.error("提取数据搓洗错误错误是%s"%error)
+                        print(error)
+                        logging.error("爬取页面出现错误，错误是%s"%error)
                         continue
-                    offerUrl="https://detail.1688.com/offer/"+str(offerId)+".html"
-                    createdTime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-                    totalPage=totalPage
-                    indexId=indexId
-                    cateName=cateName
-                    cateId=cateId
-                    cateLevel=cateLevel
-                    taskId=taskId
-                    rank=2
-                    item={"index_id":indexId,
-                          "cate_level":cateLevel,
-                          "cate_id":cateId,
-                          "cate_name":cateName,
-                          "gmt_create":gmtCreate,
-                          "offer_picurl":offerPicurl,
-                          "price":price,
-                          "subject":subject,
-                          "offer_id":offerId,
-                          "offer_url":offerUrl,
-                          "created_time":createdTime,
-                          "total_page":totalPage,
-                          "task_id":taskId,
-                          "rank":rank}
-                    # 存库
-                    self.save_commodity(item=item)
+        except Exception as error:
+            logging.error("获取商品信息出现错误，错误是%s"%error)
+
                     
                     
                     
