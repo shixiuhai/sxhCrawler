@@ -33,5 +33,6 @@ response = requests.post('https://api.appbocai.com/huahua/live/roomList', cookie
 #     print(i)
 if response.json()["data"]!=None:
     resp=response.json()["data"]
-    for item in resp:
+    # pass one item
+    for item in resp[1::]:
         print(item)
