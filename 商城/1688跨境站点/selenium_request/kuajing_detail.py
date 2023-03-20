@@ -1,85 +1,199 @@
 from selenium import webdriver
+
+from urllib.parse import urlparse
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.action_chains import ActionChains   
 import logging
+import time
 # set log config
 logging.basicConfig(level=logging.INFO,filename="./kuajing_detail.log",
                     format='%(asctime)s-%(levelname)s-%(message)s')
-
 # 定义一共解析链接的类，实现任意网站的链接解析，支持登陆渲染
 class ParseLink:
-    def __init__(self,
+    def __init__(   
+                self,
                 url:str,
-                executablePath:str=r"C:\Users\15256\Documents\Redis-x64-5.0.14.1\chromedriver.exe",
-                timeOut:int=10,
+                cookies:list,
+                executablePath:str,
+                sourceUrl:str="",
+                timeOut:int=3,
+                EnableLinuxRoot=False,
+                Enableincogniton=False,
+                EnableHeadless=True,
+                EnableCookies=True
                 ) -> None:
         # 创建一共option对象
         self.option = webdriver.ChromeOptions()
+        
         # 设置爬取页面超市时间
         self.timeOut=timeOut
+        
         # 指定的webdriver路径
         self.executablePath=executablePath
-        # self.option.add_argument('--no-sandbox')
+        
+        # linux下允许root运行
+        if EnableLinuxRoot:
+            self.option.add_argument('--no-sandbox')
         # 设置无头模式
-        # self.option.add_argument('--headless')
+        if EnableHeadless:
+            self.option.add_argument('--headless')
+        # 开启无痕模式
+        if Enableincogniton:
+            self.option.add_argument("--incognito")
+       
         # 设置关闭开发者模式防止被检测
         self.option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
         self.option.add_argument('--disable-blink-features=AutomationControlled')
-        # 开启无痕模式
-        # self.option.add_argument("--incognito")
-        self.broser=webdriver.Chrome(executable_path=self.executablePath,chrome_options=self.option)
+        self.browser=webdriver.Chrome(executable_path=self.executablePath,chrome_options=self.option)
+        self.browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+            "source": """Object.defineProperty(navigator, 'webdriver', {get: () => undefined})""",
+        })
         # 定义一个wait对象
-        self.wait=WebDriverWait(self.broser,self.timeOut)
+        self.wait=WebDriverWait(self.browser,self.timeOut)
+        # cookies
+        self.cookies=cookies
         # 传入url
         self.url=url
-        # 添加cookies
-        cookies = [{'domain': '.1688.com',  'name': 'tfstk',   'value': 'c_blBN1SSg-WwrzdhTT7SbfPJRxPZrZyFw7VuSMeonzl21_ViPiqbvHaiLe_UD1..'}, {'domain': '.1688.com',   'name': 'is_identity',  'value': 'buyer'}, {'domain': '.1688.com',  'name': 'aliwwLastRefresh',  'value': '1679217487732'}, {'domain': '.1688.com',  'name': 'mwb',  'value': 'ng'}, {'domain': '.1688.com',  'name': 'firstRefresh',  'value': '1679217486703'}, {'domain': '.1688.com',  'name': 'last_mid',  'value': 'b2b-345151005463a30'}, {'domain': '.1688.com', 'name': '__cn_logon_id__',  'value': 'tb80111606'}, {'domain': '.1688.com',  'name': 'uc4', 'value': 'id4=0%40UgP5GPE5h%2FvopPV87sbnzf8cqwZE&nk4=0%40FY4GsvRHfRNKE%2BdeKAb%2BBqEZanqS'}, {'domain': '.1688.com', 'name': '_show_user_unbind_div_',  'value': 'b2b-345151005463a30_false'}, {'domain': '.1688.com',  'name': 'unb',  'value': '3451510054'}, {'domain': '.1688.com',  'name': 'l',  'value': 'fBrWhCeVNNpWHQCkBOfwFurza77tIIRAguPzaNbMi9fPOB7p5chdW1MyNpA9CnGVFsvyR3o-P8F6BeYBqsVidj4KuQIXdpMmngzr905..'}, {'domain': '.1688.com',  'name': '__mwb_logon_id__', 'value': 'tb80111606'}, {'domain': '.1688.com',  'name': '_m_h5_tk',  'value': '98162fe66cb0984c93172076f87831d1_1679224666310'}, {'domain': '.1688.com',   'name': 'ali_apache_track',  'value': 'c_mid=b2b-345151005463a30|c_lid=tb80111606|c_ms=1'}, {'domain': '.1688.com', 'name': 'csg',  'value': '4985d3d7'}, {'domain': '.1688.com',  'name': 'sgcookie',  'value': 'E1008MgSWIwrwokjGCvsNl1u2zn73%2B50Bu2ldISMI7M286O0ny0r1f7oql70hw%2FBvucf5ATdjHf6WJi7Zqz%2FhDMp0MCPBiGxGRc8L62JRncCOUg%3D'}, {'domain': '.1688.com',  'name': 'cookie17',  'value': 'UNQyQxMqUdx1nQ%3D%3D'}, {'domain': '.1688.com','name': '_show_force_unbind_div_',  'value': 'b2b-345151005463a30_false'}, {'domain': '.1688.com',  'name': 'cookie1',  'value': 'U%2BGWz3AsFiX%2BQb4KVw17j51DAUP9jxfiN9Dd%2FomAUJ8%3D'}, {'domain': '.1688.com',  'name': 'alicnweb',   'value': 'touch_tb_at%3D1679217471072%7Clastlogonid%3Dtb80111606'}, {'domain': '.1688.com', 'name': '_csrf_token', 'value': '1679217481442'}, {'domain': '.1688.com',  'name': '__rn_alert__',  'value': 'false'}, {'domain': '.1688.com',  'name': '_show_sys_unbind_div_',  'value': 'b2b-345151005463a30_false'}, {'domain': '.1688.com', 'name': '_is_show_loginId_change_block_', 'value': 'b2b-345151005463a30_false'}, {'domain': '.1688.com',  'name': 'cna', 'value': 'O8GdHMyBOXICASe8CIUukYlA'}, {'domain': '.1688.com',  'name': '__cn_logon__',  'value': 'true'}, {'domain': '.1688.com',  'name': 'lid', 'value': 'tb80111606'}, {'domain': '.1688.com',   'name': 'xlly_s',   'value': '1'}, {'domain': '.1688.com',  'name': 'sg',   'value': '641'}, {'domain': '.1688.com', 'name': '_tb_token_',    'value': '7e85b9b509e56'}, {'domain': '.1688.com',  'name': 't', 'value': 'd2b7a2195096dbb3e2263c7c904aa947'}, {'domain': '.1688.com',   'name': 'isg',    'value': 'BGho0Zq6mB2Nt7SZAbKVL0DhOVZ6kcyb9-TjOSKZtOPWfQjnyqGcK_73cRWNzYRz'}, {'domain': '.1688.com',  'name': 'ali_apache_tracktmp',    'value': 'c_w_signed=Y'}, {'domain': '.1688.com',   'name': '_m_h5_tk_enc',    'value': '2d655479d2b87923811cfd4e78f933b2'}, {'domain': '.1688.com',   'name': 'lastRefresh',    'value': '1679217486703'}, {'domain': '.1688.com',  'name': '_nk_',   'value': 'tb80111606'}, {'domain': '.1688.com', 'name': 'cookie2',  'value': '1e276dc2818a8969861af51fe3c7f46a'}]
-        # 访问页面
-        self.broser.get(self.url)
-        for cookie in cookies:
-            self.broser.add_cookie(cookie_dict=cookie)
-        # 刷新页面
-        self.broser.refresh()
+        # print(urlparse(self.url).scheme+"//"+urlparse(self.url).netloc)
+        # 手动设置cookies在主域名刷新，解决淘宝直接在detail页面设置cookie需要滑块认证解决
+        if sourceUrl=="":
+            self.browser.get(self.url)
+        else:
+            self.sourceUrl=sourceUrl
+            self.browser(self.sourceUrl)
+        # 允许使用cookies
+        if EnableCookies:
+            # 添加cookies
+            for cookie in self.cookies:
+                self.browser.add_cookie(cookie_dict=cookie)
+            # 刷新页面
+            self.scrape_refresh()
+            
+    # 刷新页面
+    def scrape_refresh(self):
+        self.browser.refresh()
     # 定义一个解析页面的方法
     # condition 页面加载成功判断条件
     # locator 是定位器，通过配置查询条件和参数来获取一共或者多个节点
-    def scrape_page(self,condition,locator):
+    # 每次爬取页面至少又一共标签需要验证一次
+    def scrape_page(self,condition,locator)->bool:
         logging.info("scraping %s"%self.url)
         try:
-            self.broser.get(self.url)
+            self.browser.get(self.url)
             self.wait.until(condition(locator))
+            return True
         except TimeoutException:
             logging.error("error occurred while scraping %s",self.url,exc_info=True)
+            return False
     
     def scrape_items_by_css_select(self,selectCss):
-        return self.broser.find_elements(By.CSS_SELECTOR,selectCss)
+        return self.browser.find_elements(By.CSS_SELECTOR,selectCss)
     
     def scrape_item_by_css_select(self,selectCss):
-        return self.broser.find_element(By.CSS_SELECTOR,selectCss)
+        return self.browser.find_element(By.CSS_SELECTOR,selectCss)
     
     def scrape_items_by_css_name(self,selectCss):
-        return self.broser.find_elements(By.CLASS_NAME,selectCss)
+        return self.browser.find_elements(By.CLASS_NAME,selectCss)
     
     def scrape_item_by_css_name(self,selectCss):
-        return self.broser.find_element(By.CLASS_NAME,selectCss)
+        return self.browser.find_element(By.CLASS_NAME,selectCss)
     
     def scrape_items_by_path(self,selectXpath):
-        return self.broser.find_elements(By.XPATH,selectXpath)
+        return self.browser.find_elements(By.XPATH,selectXpath)
     
     def scrape_item_by_path(self,selectXpath):
-        return self.broser.find_element(By.XPATH,selectXpath)
-        
-    def close_broser(self):
-        self.broser.close()
+        return self.browser.find_element(By.XPATH,selectXpath)
+    
+    # 传出浏览器窗口对象，方便外部实现操作
+    def get_browser(self):
+        return self.browser
+    
+    def close_browser(self):
+        self.browser.close()
+    
+    def huadong(self):
+        spider = self.browser.find_element(By.XPATH, '//*[@id="nc_1_n1z"]')
+        self.move_to_gap(spider,self.get_track(300))
+    
+    # 定义一共滑块随机移动步长函数
+    # https://python3webspider.cuiqingcai.com/8.2-ji-yan-hua-dong-yan-zheng-ma-shi-bie 极验滑块 
+    # https://blog.csdn.net/qq_39377418/article/details/106954643 
+    # https://www.jb51.net/article/261758.htm
+    def get_track(self,distance):
+        """ 模拟轨迹 假装是人在操作 """
+
+        """ 1.设定长度比例 """
+        pos = [0, 1, 2, 3, 3, 2, 1, 4, 2, 1]  # 滑动轨迹之间比例设定
+        pos = [0, 5]  # 滑动轨迹之间比例设定
+
+        """ 2. 正弦函数 """
+        # pos = [random.randrange(0, 10) for i in range(10)]
+        # pos.sort()
+        # pos = [item / 10 * math.pi for item in pos]
+        # pos = [math.sin(x) for x in pos]
+
+        pos_sum = sum(pos)
+        route = [int(int(distance) * (item / pos_sum)) for item in pos]  # 计算出移动路径
+
+        route = route + [int(distance) - sum(route), ]
+        # print('distance', distance)
+        # print('sum route', sum(route))
+        # print('route', route)
+        return route
+
+
+    
+    # 极验滑块滑动
+    def move_to_gap(self, slider, tracks):
+        """
+        拖动滑块到缺口处
+        :param slider: 滑块
+        :param tracks: 轨迹
+        :return:
+        """
+        ActionChains(self.browser).click_and_hold(slider).perform()
+        for x in tracks:
+            ActionChains(self.browser).move_by_offset(xoffset=x, yoffset=0).perform()
+        time.sleep(0.1)
+        ActionChains(self.browser).release().perform()
+
 
 if __name__ == '__main__':
+    print((urlparse("https://detail.1688.com/offer/699297425649.html").scheme))
     print("开始")
-    obj=ParseLink(url="https://detail.1688.com/offer/699297425649.html?spm=a262or.11066112.rankhot.dcr10166t0.45b73722sDBn5I")
-    obj.scrape_page(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="hd_0_container_0"]/div[1]/div[2]/div/div[1]/div[3]/div/div[2]/a/div'))
-    print(obj.scrape_item_by_path('//*[@id="hd_0_container_0"]/div[1]/div[2]/div/div[1]/div[3]/div/div[2]/a/div').text)
-    
+    count=1
+    for i in range(10000):
+        try:
+            count=count+1
+            obj=ParseLink(url="https://detail.1688.com/offer/699297425649.html",
+                        cookies=[{'domain': '.1688.com', 'expiry': 1694873969, 'httpOnly': False, 'name': 'tfstk', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'cefhBgbIi9JQUaNRfMOQiV1KQvJFZSweA_5N_PiAGfv2s15NiIMZ30n4SHEbYY1..'}, {'domain': '.1688.com', 'expiry': 1679926773, 'httpOnly': False, 'name': 'is_identity', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'buyer'}, {'domain': '.1688.com', 'expiry': 1679926773, 'httpOnly': False, 'name': 'aliwwLastRefresh', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': '1679321973471'}, {'domain': '.1688.com', 'expiry': 1694873969, 'httpOnly': False, 'name': 'l', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'fBE3ujjPNNMuDc6bKOfZPurza779SIRAguPzaNbMi9fP9H_B5yoCW1MToUA6CnGVFsi2R3o-P8F6BeYBqffjeFRtuQIXdpMmnmOk-Wf..'}, {'domain': '.1688.com', 'httpOnly': False, 'name': '__mwb_logon_id__', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'tb80111606'}, {'domain': '.1688.com', 'expiry': 1679393966, 'httpOnly': False, 'name': 'last_mid', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'b2b-345151005463a30'}, {'domain': '.1688.com', 'httpOnly': False, 'name': '__cn_logon_id__', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'tb80111606'}, {'domain': '.1688.com', 'expiry': 1679329177, 'httpOnly': False, 'name': '_show_user_unbind_div_', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'b2b-345151005463a30_false'}, {'domain': '.1688.com', 'httpOnly': False, 'name': 'unb', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '3451510054'}, {'domain': '.1688.com', 'expiry': 1679926740, 'httpOnly': False, 'name': '_m_h5_tk', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '05a223edc1c87ddb5042e2c17ecb30dc_1679332020508'}, {'domain': '.1688.com', 'expiry': 1713881966, 'httpOnly': False, 'name': 'ali_apache_track', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'c_mid=b2b-345151005463a30|c_lid=tb80111606|c_ms=1'}, {'domain': '.1688.com', 'httpOnly': True, 'name': 'csg', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '71599057'}, {'domain': '.1688.com', 'httpOnly': True, 'name': 'sgcookie', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'E100xUqn1kbQTwa92pq2qk8%2BkXlFv2mCjeEk2IGGn7T4ffkun16n6jnYr25eGpL0hxYJF3JxiJL%2FXqfeN8%2F%2Fak7LrEhaYPw4WyAopxX%2FjINUcrs%3D'}, {'domain': '.1688.com', 'httpOnly': True, 'name': 'cookie17', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'UNQyQxMqUdx1nQ%3D%3D'}, {'domain': '.1688.com', 'expiry': 1679329177, 'httpOnly': False, 'name': '_show_force_unbind_div_', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'b2b-345151005463a30_false'}, {'domain': '.1688.com', 'httpOnly': True, 'name': 'cookie1', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'U%2BGWz3AsFiX%2BQb4KVw17j51DAUP9jxfiN9Dd%2FomAUJ8%3D'}, {'domain': '.1688.com', 'httpOnly': True, 'name': 'uc4', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'nk4=0%40FY4GsvRHfRNKE%2BdeKAb%2BB7c9OCFj&id4=0%40UgP5GPE5h%2FvopPV87sbnzF8qm8ZD'}, {'domain': '.1688.com', 'expiry': 1679926772, 'httpOnly': False, 'name': 'firstRefresh', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': '1679321972484'}, {'domain': '.1688.com', 'httpOnly': False, 'name': 'mwb', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'ng'}, {'domain': '.1688.com', 'expiry': 1713881983, 'httpOnly': False, 'name': 'alicnweb', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'touch_tb_at%3D1679321950680%7Clastlogonid%3Dtb80111606'}, {'domain': '.1688.com', 'httpOnly': False, 'name': '_csrf_token', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '1679321966667'}, {'domain': '.1688.com', 'expiry': 1679329178, 'httpOnly': False, 'name': '__rn_alert__', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'false'}, {'domain': '.1688.com', 'expiry': 1679329177, 'httpOnly': False, 'name': '_show_sys_unbind_div_', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'b2b-345151005463a30_false'}, {'domain': '.1688.com', 'expiry': 1679329174, 'httpOnly': False, 'name': '_is_show_loginId_change_block_', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'b2b-345151005463a30_false'}, {'domain': '.1688.com', 'expiry': 1713881943, 'httpOnly': False, 'name': 'cna', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'VlmfHHEGT04CASe8CIWdK7cd'}, {'domain': '.1688.com', 'httpOnly': False, 'name': '_tb_token_', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'ffb7596b3816e'}, {'domain': '.1688.com', 'httpOnly': False, 'name': '__cn_logon__', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'true'}, {'domain': '.1688.com', 'expiry': 1710857966, 'httpOnly': False, 'name': 'lid', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'tb80111606'}, {'domain': '.1688.com', 'httpOnly': False, 'name': 'sg', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '641'}, {'domain': '.1688.com', 'expiry': 1679408342, 'httpOnly': False, 'name': 'xlly_s', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '1'}, {'domain': '.1688.com', 'expiry': 1694873972, 'httpOnly': False, 'name': 'isg', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'BIqKdG5R2t1bFVZxL2XWLeoN23Asew7VWe7BXxTDNl1oxyqB_Ate5dC10zMbN4Zt'}, {'domain': '.1688.com', 'httpOnly': False, 'name': 'ali_apache_tracktmp', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'c_w_signed=Y'}, {'domain': '.1688.com', 'expiry': 1679926740, 'httpOnly': False, 'name': '_m_h5_tk_enc', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '3bf670c1e6240d9b6784bc494baff747'}, {'domain': '.1688.com', 'httpOnly': False, 'name': 't', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '5030ddc26b152ff4b5b7798614f9f3ff'}, {'domain': '.1688.com', 'expiry': 1679926772, 'httpOnly': False, 'name': 'lastRefresh', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': '1679321972484'}, {'domain': '.1688.com', 'httpOnly': False, 'name': '_nk_', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'tb80111606'}, {'domain': '.1688.com', 'httpOnly': True, 'name': 'cookie2', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '1bb8189afb73e70d741d44ae714785e3'}],
+                        executablePath=r"C:\Users\15256\Documents\Redis-x64-5.0.14.1\chromedriver.exe")
+            # obj.scrape_page(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="hd_0_container_0"]/div[1]/div[2]/div/div[1]/div[3]/div/div[2]/a/div'))
+            # 等待买家评价加载完成说明所有的信息都加载完成了
+            if obj.scrape_page(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="nc_1_n1z"]')):
+                obj.huadong()
+            # print("滑动成功")
+
+            # time.sleep(600)
+            if obj.scrape_page(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="10811813010580"]/div/div[2]/div[1]/div/div[1]/div[1]/div/div/div/ul/li[2]/div')):
+                print("加载成功")
+                # 公司经营年数
+                print(obj.scrape_item_by_path('//*[@id="hd_0_container_0"]/div[1]/div[2]/div/div[1]/div[3]/div/div[2]/a/div').text)
+                # 公司名称
+                print(obj.scrape_item_by_path('//*[@id="hd_0_container_0"]/div[1]/div[2]/div/div[1]/div[3]/div/div[1]/span').text)
+                # 买家评价数
+                print(obj.scrape_item_by_path('//*[@id="10811813010580"]/div/div[2]/div[1]/div/div[1]/div[1]/div/div/div/ul/li[2]/div').text)
+                # 公司90天成交量                //*[@id="10811813010580"]/div/div[2]/div[1]/div/div[1]/div[1]/div/div/div/ul/li[2]/div
+                print(obj.scrape_item_by_path('//*[@id="1081181308831"]/div/div/div[2]/div[1]/div/div[3]/div[1]/div[3]/span[2]').text)
+            # 关闭窗口
+            obj.close_browser()
+            print("爬取的页面是%s"%count)
+        except Exception as error:
+            print(count)
+            continue
     # select 是 css节点
     # obj.scrape_page(condition=EC.visibility_of_element_located,locator=(By.CSS_SELECTOR,'#hd_0_container_0 > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(2) > a > div'))
     # print(obj.scrape_item_by_css_select('#hd_0_container_0 > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(2) > a > div').text)

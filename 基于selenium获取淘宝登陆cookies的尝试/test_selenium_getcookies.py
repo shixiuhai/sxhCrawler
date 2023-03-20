@@ -34,4 +34,3 @@ time.sleep(30)
 # print(driver.get_cookies())
 with open("taobao_cookies.json","w",encoding="utf-8") as f:
     f.write(str(driver.get_cookies()))
-time.sleep(100)
