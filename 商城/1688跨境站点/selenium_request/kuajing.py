@@ -234,7 +234,7 @@ class KJ:
     def get_commodity(self):
         pass
     
-    # 定义一个保存到商品详情表的方便
+    # 定义一个保存到商品详情表的方法
     def save_detail(self,item:dict):
         pass
     
