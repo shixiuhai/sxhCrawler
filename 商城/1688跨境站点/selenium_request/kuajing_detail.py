@@ -64,7 +64,6 @@ class ParseLink:
             self.browser.get(self.url)
         else:
             self.browser.get(sourceUrl)
-            print("触发")
         # 允许使用cookies
         if EnableCookies:
             # 添加cookies
