@@ -16,8 +16,10 @@ class HH:
             'content-type': 'application/json; charset=UTF-8',
             'user-agent': 'okhttp/4.2.2',
         }
-        
+    
+    @property
     def get_anchor(self):
+        anchorList=[]
         page=1
         while True:
             json_data = {
@@ -27,15 +29,24 @@ class HH:
                 'pageSize': 20,
             }
             response=requests.post('https://api.appbocai.com/huahua/live/roomList', cookies=self.cookies, headers=self.headers, json=json_data)
-            if response.json()["data"]!=None:
+            if response.json()["data"]==[]:
+                break
+            if response.json()["data"]!=[]:
+                page=page+1
                 resp=response.json()["data"]
                 for item in resp[1::]:
-                    print(item)
-            else:
-                break
+                    returnMsg={
+                            'anchorId': item["memberId"],
+                            'anchorNickname':item["nick"],
+                            'streamUrl':item["rtmpPlayUrl"]
+                        }
+                    # print(anchorList)
+                    anchorList.append(returnMsg)
+           
             time.sleep(10)
-            
-                    
+        return anchorList
+    
+    # 写入到信息表里   
     def writeAnchorTxt(self,anchorList:list,path="/home/sh/huahua/all")->None:
         returnList=json.dumps(anchorList,ensure_ascii=False)
         # 将数据写入文件
@@ -47,4 +58,5 @@ class HH:
             
 if __name__ == "__main__":
     obj=HH()
-    obj.get_anchor()
+    # obj.get_anchor
+    obj.writeAnchorTxt(obj.get_anchor,".")
