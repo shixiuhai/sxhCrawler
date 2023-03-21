@@ -1,5 +1,6 @@
 from selenium import webdriver
-
+# 基于requests的方案
+# https://blog.csdn.net/weixin_42216028/article/details/107701421
 from urllib.parse import urlparse
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
