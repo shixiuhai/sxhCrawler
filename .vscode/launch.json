@@ -6,7 +6,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: huahualive",
+            "name": "直播: 花花直播",
             "type": "python",
             "request": "launch",
             "program": "${file}",
@@ -15,7 +15,7 @@
             "justMyCode": true
         },
         {
-            "name": "Python: scrapy",
+            "name": "test_taobao_cookie: scrapy",
             "type": "python",
             "request": "launch",
             "module": "scrapy",
