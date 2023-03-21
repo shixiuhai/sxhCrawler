@@ -344,7 +344,6 @@ class KJ:
                     
                     
                     
-                
     # 爬取信息，目前考虑到最多四级目录
     def spider(self,taskId):
         # 保存所有标题信息到index表
@@ -361,12 +360,16 @@ class KJ:
                 taskId=lastCateItem[4]
                 # 进行爬取任务
                 self.spider_goods_list(indexId,cateName,cateId,cateLevel,taskId)
+    # 爬取详情页
+    def spider_detail(self):
+        pass
                 
                                         
 if __name__ == '__main__':
     obj=KJ()
     # print(obj.get_last_cate(14))
     obj.created_task()
+    obj.spider_detail()
     #print(obj.get_last_cate())
     # obj.spider_goods_list(5389,'机械门锁',1033168,3,1)
     # print(obj.created_task())
