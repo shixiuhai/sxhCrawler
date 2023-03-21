@@ -1,9 +1,0 @@
-Sun 19 Mar 2023 12:40:44 ciyuanji.py ERROR 连接mysql出现错误
-Sun 19 Mar 2023 12:40:44 connectionpool.py DEBUG Starting new HTTPS connection (1): www.ciyuanji.com:443
-Sun 19 Mar 2023 12:40:45 connectionpool.py DEBUG https://www.ciyuanji.com:443 "GET /l_c_0_0_0_0_1_1_10.html HTTP/1.1" 200 None
-Sun 19 Mar 2023 12:40:45 connectionpool.py DEBUG Starting new HTTPS connection (1): www.ciyuanji.com:443
-Sun 19 Mar 2023 12:40:46 connectionpool.py DEBUG https://www.ciyuanji.com:443 "GET /b_d_6024.html HTTP/1.1" 200 None
-Sun 19 Mar 2023 12:40:46 connectionpool.py DEBUG Starting new HTTPS connection (1): www.ciyuanji.com:443
-Sun 19 Mar 2023 12:40:47 connectionpool.py DEBUG https://www.ciyuanji.com:443 "GET /chapter/6024_2279920.html HTTP/1.1" 200 None
-Sun 19 Mar 2023 12:40:47 ciyuanji.py INFO 开始爬取美少女们的N等分家教小说的第一章 正经的我和不正经的她章节内容,章节地址为https://www.ciyuanji.com/chapter/6024_2279920.html
-Sun 19 Mar 2023 12:40:47 ciyuanji.py ERROR 插入数据库出错，错误是'CYJ' object has no attribute 'db'
