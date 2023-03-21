@@ -11,7 +11,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "cwd": "直播/花花直播",
+            "cwd": "${workspaceRoot}/直播/花花直播",
             "justMyCode": true
         },
         {
