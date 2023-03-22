@@ -40,7 +40,7 @@ class HH:
                             'anchorNickname':item["nick"],
                             'streamUrl':item["rtmpPlayUrl"]
                         }
-                    # print(anchorList)
+                    print(anchorList)
                     anchorList.append(returnMsg)
            
             time.sleep(10)
@@ -59,4 +59,4 @@ class HH:
 if __name__ == "__main__":
     obj=HH()
     # obj.get_anchor
-    obj.writeAnchorTxt(obj.get_anchor,".")
+    obj.writeAnchorTxt(obj.get_anchor)
