@@ -6,6 +6,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "cookie池登陆: selenium_request",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${workspaceFolder}/商城/1688跨境站点/selenium_request",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "name": "淘宝详情页: selenium_request",
             "type": "python",
             "request": "launch",
