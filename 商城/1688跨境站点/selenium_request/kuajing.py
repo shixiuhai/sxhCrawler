@@ -369,7 +369,7 @@ if __name__ == '__main__':
     obj=KJ()
     # print(obj.get_last_cate(14))
     obj.created_task()
-    obj.spider_detail()
+    # obj.spider_detail()
     #print(obj.get_last_cate())
     # obj.spider_goods_list(5389,'机械门锁',1033168,3,1)
     # print(obj.created_task())
