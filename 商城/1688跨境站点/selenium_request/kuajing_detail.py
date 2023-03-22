@@ -120,7 +120,6 @@ class ParseLink:
         self.move_to_gap(spider,self.get_track(300))
     
     # 定义一共滑块随机移动步长函数
-    # https://python3webspider.cuiqingcai.com/8.2-ji-yan-hua-dong-yan-zheng-ma-shi-bie 极验滑块 
     # https://blog.csdn.net/qq_39377418/article/details/106954643 
     # https://www.jb51.net/article/261758.htm
     def get_track(self,distance):
