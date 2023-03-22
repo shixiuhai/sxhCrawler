@@ -120,6 +120,7 @@ class ParseLink:
         self.move_to_gap(spider,self.get_track(300))
     
     # 定义一共滑块随机移动步长函数
+    # https://cloud.tencent.com/developer/article/1095744 鼠标点击事件方法
     # https://blog.csdn.net/qq_39377418/article/details/106954643 
     # https://www.jb51.net/article/261758.htm
     def get_track(self,distance):
@@ -151,11 +152,15 @@ class ParseLink:
         """
         拖动滑块到缺口处
         :param slider: 滑块
-        :param tracks: 轨迹
+        :param tracks: 轨迹 
         :return:
         """
+        # to_element: The WebElement to move to.
+
+        # Move the mouse by an offset of the specified element. Offsets are relative to the in-view center point of the element.
         ActionChains(self.browser).click_and_hold(slider).perform()
         for x in tracks:
+            ActionChains(self.browser).move_to_element_with_offset()
             ActionChains(self.browser).move_by_offset(xoffset=x, yoffset=0).perform()
         time.sleep(0.1)
         ActionChains(self.browser).release().perform()
