@@ -83,16 +83,6 @@ class LGC:
             self.move_to_gap(slider,self.get_track(300))
             time.sleep(2)
             
-        
-
-        time.sleep(1000)
-        
-       
-            
-      
-   
-
-    
     # 检测页面标签是否存在  
     def detection_element(self,condition,locator)->bool:
         logging.info("detection element ")
