@@ -33,7 +33,7 @@ class LGC:
             "source": """Object.defineProperty(navigator, 'webdriver', {get: () => undefined})""",
         })
         # 定义一个wait对象
-        self.wait=WebDriverWait(self.browser,4)
+        self.wait=WebDriverWait(self.browser,20)
         self.browser.get(self.fistUrl)
     
     def login_account(self,accountItem:dict="")->None:
@@ -47,7 +47,7 @@ class LGC:
         if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="fm-login-id"]')):
             userName=self.browser.find_element(By.XPATH,'//*[@id="fm-login-id"]')
             userName.send_keys("15256728901")
-            time.sleep(3)
+            time.sleep(2)
            
         # 填写密码
         if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="fm-login-password"]')):
@@ -56,32 +56,57 @@ class LGC:
             time.sleep(3)
         
         # 滑块
-        if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.CSS_SELECTOR, '#nc_1_n1z')):
-            slider=self.browser.find_element(By.CSS_SELECTOR,'#nc_1_n1z')
+        if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.XPATH, '//*[@id="nc_1__bg"]')):
+            slider=self.browser.find_element(By.XPATH,'//*[@id="nc_1__bg"]')
             self.move_to_gap(slider,self.get_track(300))
             time.sleep(2)
         
-        # # 执行登陆操作
-        if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="login-form"]/div[4]/button')):
+        # 执行登陆操作
+        if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.CSS_SELECTOR,'#nc_1_n1z')):
             submit=self.browser.find_element(By.XPATH,'//*[@id="login-form"]/div[4]/button')
             submit.click()
+            time.sleep(2)
+        
+        
             
         
-        # 滑块
-        if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.CSS_SELECTOR, '#nc_1_n1z')):
-            slider=self.browser.find_element(By.CSS_SELECTOR,'#nc_1_n1z')
-            self.move_to_gap(slider,self.get_track(300))
-            time.sleep(2)
+        # # 滑块
+        # if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.CSS_SELECTOR, '#nc_1_n1z')):
+        #     slider=self.browser.find_element(By.CSS_SELECTOR,'#nc_1_n1z')
+        #     self.move_to_gap(slider,self.get_track(300))
+        #     time.sleep(2)
         
-        # 执行登陆
-        if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="login-form"]/div[4]/button')):
-            submit=self.browser.find_element(By.XPATH,'//*[@id="login-form"]/div[4]/button')
-            submit.click()
         
-        if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.CSS_SELECTOR, '#nc_1_n1z')):
-            slider=self.browser.find_element(By.CSS_SELECTOR,'#nc_1_n1z')
-            self.move_to_gap(slider,self.get_track(300))
-            time.sleep(2)
+        # # 执行登陆
+        # if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="login-form"]/div[4]/button')):
+        #     submit=self.browser.find_element(By.XPATH,'//*[@id="login-form"]/div[4]/button')
+        #     submit.click()
+        
+        # # 滑块
+        # if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.CSS_SELECTOR, '#nc_1_n1z')):
+        #     slider=self.browser.find_element(By.CSS_SELECTOR,'#nc_1_n1z')
+        #     self.move_to_gap(slider,self.get_track(300))
+        #     time.sleep(2)
+            
+        # if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.CSS_SELECTOR, '#nc_1_n1z')):
+        #     slider=self.browser.find_element(By.CSS_SELECTOR,'#nc_1_n1z')
+        #     self.move_to_gap(slider,self.get_track(300))
+        #     time.sleep(2)
+        
+        # # # 执行登陆操作
+        # if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="login-form"]/div[4]/button')):
+        #     submit=self.browser.find_element(By.XPATH,'//*[@id="login-form"]/div[4]/button')
+        #     submit.click()
+        #     time.sleep(2)
+            
+        # # 滑块
+        # if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.CSS_SELECTOR, '#nc_1_n1z')):
+        #     slider=self.browser.find_element(By.CSS_SELECTOR,'#nc_1_n1z')
+        #     self.move_to_gap(slider,self.get_track(300))
+        #     time.sleep(2)
+        
+        print("结束")
+        time.sleep(100)
             
     # 检测页面标签是否存在  
     def detection_element(self,condition,locator)->bool:
@@ -131,6 +156,7 @@ class LGC:
         ActionChains(self.browser).click_and_hold(slider).perform()
         for x in tracks:
             ActionChains(self.browser).move_to_element_with_offset()
+            time.sleep(1)
             ActionChains(self.browser).move_by_offset(xoffset=x, yoffset=0).perform()
         time.sleep(0.1)
         ActionChains(self.browser).release().perform()

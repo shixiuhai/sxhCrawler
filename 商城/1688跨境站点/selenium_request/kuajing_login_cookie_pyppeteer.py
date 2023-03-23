@@ -68,7 +68,6 @@ async def taobao_login(username, password, url):
         await page.evaluate('''document.getElementById("J_SubmitStatic").click()''')
         await page.waitFor(20)
         await page.waitForNavigation()
-
         try:
             global error  # 检测是否是账号密码错误
             print("error_1:", error)
