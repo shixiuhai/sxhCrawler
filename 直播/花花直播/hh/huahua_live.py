@@ -8,11 +8,11 @@ class HH:
         }
         self.headers = {
             'Host': 'api.appbocai.com',
-            # 'Cookie': 'acw_tc=2f61f26916792967548221899e4bb6bc2d6e27fe5a01b622e348e3beba72cb',
+            # 'Cookie': 'acw_tc=2f61f26916792967548221899e4bb6bc2d6e27fe5a01b622e348e3beba72',
             'version': '864',
             'channel': 'wandoujia',
             'platform': '2',
-            'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHRlbmQiOiIiLCJ1aWQiOjEwMDM2MzYxNzcsImxvZ2luVHlwZSI6InFxIiwidW5vIjoxMDAzNjM2MTc3LCJpcCI6IjExMS4yLjkxLjM4IiwiaXNzIjoiZmxhc2h3aGFsZS10ZWNoIiwic291cmNlIjoid2FuZG91amlhIiwiZGV2aWNlSWQiOiIiLCJ2ZXJzaW9uIjoiODY0IiwicGxhdGZvcm0iOiIyIiwidGltZXN0YW1wIjoxNjc5Mjk3MTc1NTIzfQ.jTbAYDGUHaIJVNB4qfXV0Rkkm-Kt-rHkVXUY_ZkjUyc',
+            'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHRlbmQiOiIiLCJ1aWQiOjEwMDM2MzYxNzcsImxvZ2luVHlwZSI6InFxIiwidW5vIjoxMDAzNjM2MTc3LCJpcCI6IjExMS4yLjkxLjM4IiwiaXNzIjoiZmxhc2h3aGFsZS10ZWNoIiwic291cmNlIjoid2FuZG91amlhIiwiZGV2aWNlSWQiOiIiLCJ2ZXJzaW9uIjoiODY0IiwicGxhdGZvcm0iOiIyIiwidGltZXN0YW1wIjoxNjc5Mjk3MTc1NTIzfQ.jTbAYDGUHaIJVNB4qfXV0Rkkm-Kt-rHkVXU',
             'content-type': 'application/json; charset=UTF-8',
             'user-agent': 'okhttp/4.2.2',
         }
@@ -40,7 +40,7 @@ class HH:
                             'anchorNickname':item["nick"],
                             'streamUrl':item["rtmpPlayUrl"]
                         }
-                    # print(anchorList)
+                    print(anchorList)
                     anchorList.append(returnMsg)
            
             time.sleep(10)
@@ -59,4 +59,4 @@ class HH:
 if __name__ == "__main__":
     obj=HH()
     # obj.get_anchor
-    obj.writeAnchorTxt(obj.get_anchor,".")
+    obj.writeAnchorTxt(obj.get_anchor)
