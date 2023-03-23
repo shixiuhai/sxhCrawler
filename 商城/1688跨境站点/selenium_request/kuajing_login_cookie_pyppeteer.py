@@ -36,7 +36,7 @@ async def taobao_login(username, password, url):
     await page.evaluate(
         '''() =>{ Object.defineProperties(navigator,{ webdriver:{ get: () => undefined } }) }''')
     await page.evaluate('''() =>{ window.navigator.chrome = { runtime: {},  }; }''')
-    await page.evaluate('''() =>{ Object.defineProperty(navigator, 'languages', { get: () => ['en-US', 'en'] }); }''')
+    await page.evaluate('''() =>{ Object.defineProperty(navigator, 'languages', { get: () => ['zh-CN', 'zh'] }); }''')
     await page.evaluate('''() =>{ Object.defineProperty(navigator, 'plugins', { get: () => [1, 2, 3, 4, 5,6], }); }''')
 
     # await page.click('#J_QRCodeLogin > div.login-links > a.forget-pwd.J_Quick2Static')
