@@ -23,7 +23,7 @@ class LGC:
         self.accountList=accountList
         self.executablePath=executablePath
         self.option = webdriver.ChromeOptions()
-        self.fistUrl='https://www.1688.com'
+        self.fistUrl='https://www.taobao.com'
         self.loginUrl = 'https://login.taobao.com'
         # 设置关闭开发者模式防止被检测
         self.option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
@@ -38,32 +38,53 @@ class LGC:
     
     def login_account(self,accountItem:dict="")->None:
         # https://python3webspider.cuiqingcai.com/8.4-wei-bo-gong-ge-yan-zheng-ma-shi-bie
-        self.browser.get(self.loginUrl)        
+        self.browser.get(self.fistUrl) 
+        # 隐式等待
+        self.browser.implicitly_wait(10)
+        self.browser.maximize_window()
+        self.browser.find_element(By.XPATH,'//*[@id="J_SiteNavLogin"]/div[1]/div[1]/a[1]').click()
         # 填写用户名
         if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="fm-login-id"]')):
             userName=self.browser.find_element(By.XPATH,'//*[@id="fm-login-id"]')
             userName.send_keys("15256728901")
-        
+            time.sleep(3)
+           
         # 填写密码
         if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="fm-login-password"]')):
             passWord=self.browser.find_element(By.XPATH,'//*[@id="fm-login-password"]')
             passWord.send_keys("sxh.200008")
+            time.sleep(3)
         
-        # //*[@id="nc_1__scale_text"]/span
-        time.sleep(6)
+        # 滑块
         if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.CSS_SELECTOR, '#nc_1_n1z')):
             slider=self.browser.find_element(By.CSS_SELECTOR,'#nc_1_n1z')
             self.move_to_gap(slider,self.get_track(300))
+            time.sleep(2)
         
-        # 执行登陆操作
+        # # 执行登陆操作
+        if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="login-form"]/div[4]/button')):
+            submit=self.browser.find_element(By.XPATH,'//*[@id="login-form"]/div[4]/button')
+            submit.click()
+            
+        
+        # 滑块
+        if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.CSS_SELECTOR, '#nc_1_n1z')):
+            slider=self.browser.find_element(By.CSS_SELECTOR,'#nc_1_n1z')
+            self.move_to_gap(slider,self.get_track(300))
+            time.sleep(2)
+        
+        # 执行登陆
         if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="login-form"]/div[4]/button')):
             submit=self.browser.find_element(By.XPATH,'//*[@id="login-form"]/div[4]/button')
             submit.click()
         
-        # 滑动滑块
-        # if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.XPATH, '//*[@id="nc_1_n1z"]')):
-        #     slider=self.browser.find_element(By.XPATH,'//*[@id="nc_1_n1z"]')
-        #     self.move_to_gap(slider,self.get_track(300))
+        if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.CSS_SELECTOR, '#nc_1_n1z')):
+            slider=self.browser.find_element(By.CSS_SELECTOR,'#nc_1_n1z')
+            self.move_to_gap(slider,self.get_track(300))
+            time.sleep(2)
+            
+        
+
         time.sleep(1000)
         
        
