@@ -55,16 +55,19 @@ class LGC:
             passWord.send_keys("sxh.200008")
             time.sleep(3)
         
-        # 滑块
-        if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.XPATH, '//*[@id="nc_1__bg"]')):
-            slider=self.browser.find_element(By.XPATH,'//*[@id="nc_1__bg"]')
-            self.move_to_gap(slider,self.get_track(300))
-            time.sleep(2)
+       
         
         # 执行登陆操作
         if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.CSS_SELECTOR,'#nc_1_n1z')):
             submit=self.browser.find_element(By.XPATH,'//*[@id="login-form"]/div[4]/button')
             submit.click()
+            time.sleep(4)
+            
+            
+        # 滑块
+        if self.detection_element(condition=EC.visibility_of_element_located,locator=(By.XPATH, '//*[@id="nc_1_n1t"]')):
+            slider=self.browser.find_element(By.XPATH,'//*[@id="nc_1_n1z"]')
+            self.move_to_gap(slider,self.get_track(300))
             time.sleep(2)
         
         

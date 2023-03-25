@@ -3,6 +3,11 @@ import logging
 import time
 import json
 import pymysql
+from kuajing_detail import ParseLink
+# 基于requests的方案
+# https://blog.csdn.net/weixin_42216028/article/details/107701421
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 logging.basicConfig(level=logging.INFO,filename="./kuajing.log",
                     format='%(asctime)s-%(levelname)s-%(message)s')
 class KJ:
@@ -201,7 +206,7 @@ class KJ:
         return result
         
     # 定义一共创建任务的方法
-    def created_task(self,tasktype:int=2)->int:
+    def created_index_task(self,tasktype:int=2)->int:
         # 任务创建时间
         createdTime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         if tasktype==1:
@@ -213,14 +218,14 @@ class KJ:
             if taskId==0:
                 logging.error("爬取任务启动失败")
             else:
-                self.spider(taskId=taskId)
+                self.spider_index(taskId=taskId)
         if tasktype==2:
             describe="自动爬取任务"
             taskId=self.exec_mysql_id("insert into 1688_kj_commodity_task (created_time,type,task_describe) values ('%s','%s','%s')"%(createdTime,tasktype,describe))
             if taskId==0:
                 logging.error("爬取任务启动失败")
             else:
-                self.spider(taskId=taskId)
+                self.spider_index(taskId=taskId)
                 
     # 定义一个保存到商品信息表的方法
     def save_commodity(self,item:dict):
@@ -231,8 +236,9 @@ class KJ:
                         %(item["index_id"],item["cate_level"],item["cate_id"],item["cate_name"],item["gmt_create"],item["offer_picurl"],item["price"],item["subject"],item["offer_id"],item["offer_url"],item["created_time"],item["total_page"],item["task_id"],item["rank"]))
     
     # 定义一个获取商品信息表的方法
-    def get_commodity(self):
-        pass
+    def get_commodity(self,taskId):
+        result=self.select_mysql("SELECT commod.id,commod.offer_url FROM 1688_kj_commodity commod where id NOT IN (SELECT commodity_id FROM 1688_kj_commodity_detail ) and task_id='%s'"%taskId)
+        return result
     
     # 定义一个保存到商品详情表的方法
     def save_detail(self,item:dict):
@@ -345,7 +351,7 @@ class KJ:
                     
                     
     # 爬取信息，目前考虑到最多四级目录
-    def spider(self,taskId):
+    def spider_index(self,taskId:int):
         # 保存所有标题信息到index表
         self.save_cate(taskId)
         # 从index获取最后一级标题信息
@@ -361,14 +367,38 @@ class KJ:
                 # 进行爬取任务
                 self.spider_goods_list(indexId,cateName,cateId,cateLevel,taskId)
     # 爬取详情页
-    def spider_detail(self):
-        pass
-                
+    def spider_detail(self,taskId:int,cookies:list=[{'domain': '.1688.com', 'expiry': 1694873969, 'httpOnly': False, 'name': 'tfstk', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'cefhBgbIi9JQUaNRfMOQiV1KQvJFZSweA_5N_PiAGfv2s15NiIMZ30n4SHEbYY1..'}, {'domain': '.1688.com', 'expiry': 1679926773, 'httpOnly': False, 'name': 'is_identity', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'buyer'}, {'domain': '.1688.com', 'expiry': 1679926773, 'httpOnly': False, 'name': 'aliwwLastRefresh', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': '1679321973471'}, {'domain': '.1688.com', 'expiry': 1694873969, 'httpOnly': False, 'name': 'l', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'fBE3ujjPNNMuDc6bKOfZPurza779SIRAguPzaNbMi9fP9H_B5yoCW1MToUA6CnGVFsi2R3o-P8F6BeYBqffjeFRtuQIXdpMmnmOk-Wf..'}, {'domain': '.1688.com', 'httpOnly': False, 'name': '__mwb_logon_id__', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'tb80111606'}, {'domain': '.1688.com', 'expiry': 1679393966, 'httpOnly': False, 'name': 'last_mid', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'b2b-345151005463a30'}, {'domain': '.1688.com', 'httpOnly': False, 'name': '__cn_logon_id__', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'tb80111606'}, {'domain': '.1688.com', 'expiry': 1679329177, 'httpOnly': False, 'name': '_show_user_unbind_div_', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'b2b-345151005463a30_false'}, {'domain': '.1688.com', 'httpOnly': False, 'name': 'unb', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '3451510054'}, {'domain': '.1688.com', 'expiry': 1679926740, 'httpOnly': False, 'name': '_m_h5_tk', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '05a223edc1c87ddb5042e2c17ecb30dc_1679332020508'}, {'domain': '.1688.com', 'expiry': 1713881966, 'httpOnly': False, 'name': 'ali_apache_track', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'c_mid=b2b-345151005463a30|c_lid=tb80111606|c_ms=1'}, {'domain': '.1688.com', 'httpOnly': True, 'name': 'csg', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '71599057'}, {'domain': '.1688.com', 'httpOnly': True, 'name': 'sgcookie', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'E100xUqn1kbQTwa92pq2qk8%2BkXlFv2mCjeEk2IGGn7T4ffkun16n6jnYr25eGpL0hxYJF3JxiJL%2FXqfeN8%2F%2Fak7LrEhaYPw4WyAopxX%2FjINUcrs%3D'}, {'domain': '.1688.com', 'httpOnly': True, 'name': 'cookie17', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'UNQyQxMqUdx1nQ%3D%3D'}, {'domain': '.1688.com', 'expiry': 1679329177, 'httpOnly': False, 'name': '_show_force_unbind_div_', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'b2b-345151005463a30_false'}, {'domain': '.1688.com', 'httpOnly': True, 'name': 'cookie1', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'U%2BGWz3AsFiX%2BQb4KVw17j51DAUP9jxfiN9Dd%2FomAUJ8%3D'}, {'domain': '.1688.com', 'httpOnly': True, 'name': 'uc4', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'nk4=0%40FY4GsvRHfRNKE%2BdeKAb%2BB7c9OCFj&id4=0%40UgP5GPE5h%2FvopPV87sbnzF8qm8ZD'}, {'domain': '.1688.com', 'expiry': 1679926772, 'httpOnly': False, 'name': 'firstRefresh', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': '1679321972484'}, {'domain': '.1688.com', 'httpOnly': False, 'name': 'mwb', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'ng'}, {'domain': '.1688.com', 'expiry': 1713881983, 'httpOnly': False, 'name': 'alicnweb', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'touch_tb_at%3D1679321950680%7Clastlogonid%3Dtb80111606'}, {'domain': '.1688.com', 'httpOnly': False, 'name': '_csrf_token', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '1679321966667'}, {'domain': '.1688.com', 'expiry': 1679329178, 'httpOnly': False, 'name': '__rn_alert__', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'false'}, {'domain': '.1688.com', 'expiry': 1679329177, 'httpOnly': False, 'name': '_show_sys_unbind_div_', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'b2b-345151005463a30_false'}, {'domain': '.1688.com', 'expiry': 1679329174, 'httpOnly': False, 'name': '_is_show_loginId_change_block_', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'b2b-345151005463a30_false'}, {'domain': '.1688.com', 'expiry': 1713881943, 'httpOnly': False, 'name': 'cna', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'VlmfHHEGT04CASe8CIWdK7cd'}, {'domain': '.1688.com', 'httpOnly': False, 'name': '_tb_token_', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'ffb7596b3816e'}, {'domain': '.1688.com', 'httpOnly': False, 'name': '__cn_logon__', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'true'}, {'domain': '.1688.com', 'expiry': 1710857966, 'httpOnly': False, 'name': 'lid', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'tb80111606'}, {'domain': '.1688.com', 'httpOnly': False, 'name': 'sg', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '641'}, {'domain': '.1688.com', 'expiry': 1679408342, 'httpOnly': False, 'name': 'xlly_s', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '1'}, {'domain': '.1688.com', 'expiry': 1694873972, 'httpOnly': False, 'name': 'isg', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'BIqKdG5R2t1bFVZxL2XWLeoN23Asew7VWe7BXxTDNl1oxyqB_Ate5dC10zMbN4Zt'}, {'domain': '.1688.com', 'httpOnly': False, 'name': 'ali_apache_tracktmp', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': 'c_w_signed=Y'}, {'domain': '.1688.com', 'expiry': 1679926740, 'httpOnly': False, 'name': '_m_h5_tk_enc', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '3bf670c1e6240d9b6784bc494baff747'}, {'domain': '.1688.com', 'httpOnly': False, 'name': 't', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '5030ddc26b152ff4b5b7798614f9f3ff'}, {'domain': '.1688.com', 'expiry': 1679926772, 'httpOnly': False, 'name': 'lastRefresh', 'path': '/', 'sameSite': 'Lax', 'secure': False, 'value': '1679321972484'}, {'domain': '.1688.com', 'httpOnly': False, 'name': '_nk_', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'tb80111606'}, {'domain': '.1688.com', 'httpOnly': True, 'name': 'cookie2', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': '1bb8189afb73e70d741d44ae714785e3'}]):
+        commodList=self.get_commodity(taskId=taskId)
+        for commodItem in commodList:
+            commodId=commodItem[0]
+            commodUrl=commodItem[1]
+            # print(commodId,commodUrl)
+            self.parse_detail(commodId=commodId,commodUrl=commodUrl,cookies=cookies)
+            
+    def parse_detail(self,commodId:int,commodUrl:str,cookies:list)->None:
+        obj=ParseLink(url="%s"%commodUrl,
+                        cookies=cookies,
+                        executablePath=r"C:\Users\15256\Documents\Redis-x64-5.0.14.1\chromedriver.exe",
+                        sourceUrl="https://www.1688.com/")
+        
+        if obj.scrape_page(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="10811813010580"]/div/div[2]/div[1]/div/div[1]/div[1]/div/div/div/ul/li[2]/div')):
+                print("加载成功")
+                # 公司经营年数
+                print(obj.scrape_item_by_path('//*[@id="hd_0_container_0"]/div[1]/div[2]/div/div[1]/div[3]/div/div[2]/a/div').text)
+                # 公司名称
+                print(obj.scrape_item_by_path('//*[@id="hd_0_container_0"]/div[1]/div[2]/div/div[1]/div[3]/div/div[1]/span').text)
+                # 买家评价数
+                print(obj.scrape_item_by_path('//*[@id="10811813010580"]/div/div[2]/div[1]/div/div[1]/div[1]/div/div/div/ul/li[2]/div').text)
+                # 公司90天成交量                //*[@id="10811813010580"]/div/div[2]/div[1]/div/div[1]/div[1]/div/div/div/ul/li[2]/div
+                print(obj.scrape_item_by_path('//*[@id="1081181308831"]/div/div/div[2]/div[1]/div/div[3]/div[1]/div[3]/span[2]').text)
+        
                                         
 if __name__ == '__main__':
     obj=KJ()
     # print(obj.get_last_cate(14))
-    obj.created_task()
+    # 开启爬取目录任务
+    #obj.created_index_task()
+    print(obj.spider_detail(17))
     # obj.spider_detail()
     #print(obj.get_last_cate())
     # obj.spider_goods_list(5389,'机械门锁',1033168,3,1)
