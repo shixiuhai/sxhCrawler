@@ -207,6 +207,7 @@ class KJ:
         
     # 定义一共创建任务的方法
     def created_index_task(self,tasktype:int=2)->int:
+        taskId=0
         # 任务创建时间
         createdTime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         if tasktype==1:
@@ -226,6 +227,10 @@ class KJ:
                 logging.error("爬取任务启动失败")
             else:
                 self.spider_index(taskId=taskId)
+        print("-----------------------------")
+        print("该最新任务的taskId是%s"%taskId)
+        print("-----------------------------")
+        
                 
     # 定义一个保存到商品信息表的方法
     def save_commodity(self,item:dict):
@@ -242,7 +247,9 @@ class KJ:
     
     # 定义一个保存到商品详情表的方法
     def save_detail(self,item:dict):
-        pass
+        self.exec_mysql("insert into 1688_kj_commodity_detail (`commodity_id`,`business_name`,`business_year`,`user_evaluate`,`turnover`,`created_time`,`task_id`, `rank`) \
+                        values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"\
+                        %(item["commodity_id"],item["business_name"],item["business_year"],item["user_evaluate"],item["turnover"],item["created_time"],item["task_id"],item["rank"]))
     
     # 定义一个爬取商品信息的方法
     def spider_goods_list(self,indexId,cateName,cateId,cateLevel,taskId):
@@ -346,10 +353,7 @@ class KJ:
                         continue
         except Exception as error:
             logging.error("获取商品信息出现错误，错误是%s"%error)
-
-                    
-                    
-                    
+              
     # 爬取信息，目前考虑到最多四级目录
     def spider_index(self,taskId:int):
         # 保存所有标题信息到index表
@@ -372,26 +376,45 @@ class KJ:
         for commodItem in commodList:
             commodId=commodItem[0]
             commodUrl=commodItem[1]
-            rank=commodItem[3]
+            rank=commodItem[2]
             # print(commodId,commodUrl)
-            self.parse_detail(commodId=commodId,commodUrl=commodUrl,cookies=cookies,rank=rank)
-            
-    def parse_detail(self,commodId:int,commodUrl:str,cookies:list,rank:int)->None:
+            # 这个地方可以考虑多线程
+            self.parse_detail(commodId=commodId,commodUrl=commodUrl,cookies=cookies,rank=rank,taskId=taskId)
+    # pass exit quit   
+    def parse_detail(self,commodId:int,commodUrl:str,cookies:list,rank:int,taskId:int)->None:
         obj=ParseLink(url="%s"%commodUrl,
                         cookies=cookies,
                         executablePath=r"C:\Users\15256\Documents\Redis-x64-5.0.14.1\chromedriver.exe",
                         sourceUrl="https://www.1688.com/")
         
         if obj.scrape_page(condition=EC.visibility_of_element_located,locator=(By.XPATH,'//*[@id="10811813010580"]/div/div[2]/div[1]/div/div[1]/div[1]/div/div/div/ul/li[2]/div')):
-                print("加载成功")
-                # 公司经营年数
-                print(obj.scrape_item_by_path('//*[@id="hd_0_container_0"]/div[1]/div[2]/div/div[1]/div[3]/div/div[2]/a/div').text)
-                # 公司名称
-                print(obj.scrape_item_by_path('//*[@id="hd_0_container_0"]/div[1]/div[2]/div/div[1]/div[3]/div/div[1]/span').text)
-                # 买家评价数
-                print(obj.scrape_item_by_path('//*[@id="10811813010580"]/div/div[2]/div[1]/div/div[1]/div[1]/div/div/div/ul/li[2]/div').text)
-                # 公司90天成交量                //*[@id="10811813010580"]/div/div[2]/div[1]/div/div[1]/div[1]/div/div/div/ul/li[2]/div
-                print(obj.scrape_item_by_path('//*[@id="1081181308831"]/div/div/div[2]/div[1]/div/div[3]/div[1]/div[3]/span[2]').text)
+                print("详情页%s加载成功"%commodUrl)
+                try:
+                    # 公司经营年数
+                    businessYear=obj.scrape_item_by_path('//*[@id="hd_0_container_0"]/div[1]/div[2]/div/div[1]/div[3]/div/div[2]/a/div').text
+                    # 公司名称
+                    businessName=obj.scrape_item_by_path('//*[@id="hd_0_container_0"]/div[1]/div[2]/div/div[1]/div[3]/div/div[1]/span').text
+                    # 买家评价数
+                    userEvaluate=obj.scrape_item_by_path('//*[@id="10811813010580"]/div/div[2]/div[1]/div/div[1]/div[1]/div/div/div/ul/li[2]/div').text
+                    # 公司90天成交量                //*[@id="10811813010580"]/div/div[2]/div[1]/div/div[1]/div[1]/div/div/div/ul/li[2]/div
+                    turnover=obj.scrape_item_by_path('//*[@id="1081181308831"]/div/div/div[2]/div[1]/div/div[3]/div[1]/div[3]/span[2]').text
+                    commodId=commodId
+                    createdTime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                    item={
+                        "commodity_id":commodId,
+                        "business_name":businessName,
+                        "business_year":businessYear,
+                        "user_evaluate":userEvaluate,
+                        "turnover":turnover,
+                        "created_time":createdTime,
+                        "task_id":taskId,
+                        "rank":rank
+                    }
+                    self.save_detail(item)
+                except Exception as error:
+                    logging.error("爬取详情页%s出现的错误是%s"%(commodUrl,error))
+                
+                
         
         # 详情页数据入库
         pass
@@ -401,7 +424,14 @@ if __name__ == '__main__':
     # print(obj.get_last_cate(14))
     # 开启爬取目录任务
     #obj.created_index_task()
-    print(obj.spider_detail(17))
+    task=input("请输入你的爬取需求 1. 爬取商品信息，2. 爬取详情页信息：")
+    if int(task)==1:
+        obj.created_index_task()
+    elif int(task)==2:
+        # taskId输入你最新任务的taskId
+        taskId=int(input("请输入你需要爬取的详情页关联的taskId："))
+        print(obj.spider_detail(taskId))
+    
     # obj.spider_detail()
     #print(obj.get_last_cate())
     # obj.spider_goods_list(5389,'机械门锁',1033168,3,1)
