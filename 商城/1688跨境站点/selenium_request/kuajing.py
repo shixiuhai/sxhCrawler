@@ -237,7 +237,7 @@ class KJ:
     
     # 定义一个获取商品信息表的方法
     def get_commodity(self,taskId):
-        result=self.select_mysql("SELECT commod.id,commod.offer_url FROM 1688_kj_commodity commod where id NOT IN (SELECT commodity_id FROM 1688_kj_commodity_detail ) and task_id='%s'"%taskId)
+        result=self.select_mysql("SELECT commod.id,commod.offer_url,commod.rank FROM 1688_kj_commodity commod where id NOT IN (SELECT commodity_id FROM 1688_kj_commodity_detail ) and task_id='%s'"%taskId)
         return result
     
     # 定义一个保存到商品详情表的方法
@@ -372,10 +372,11 @@ class KJ:
         for commodItem in commodList:
             commodId=commodItem[0]
             commodUrl=commodItem[1]
+            rank=commodItem[3]
             # print(commodId,commodUrl)
-            self.parse_detail(commodId=commodId,commodUrl=commodUrl,cookies=cookies)
+            self.parse_detail(commodId=commodId,commodUrl=commodUrl,cookies=cookies,rank=rank)
             
-    def parse_detail(self,commodId:int,commodUrl:str,cookies:list)->None:
+    def parse_detail(self,commodId:int,commodUrl:str,cookies:list,rank:int)->None:
         obj=ParseLink(url="%s"%commodUrl,
                         cookies=cookies,
                         executablePath=r"C:\Users\15256\Documents\Redis-x64-5.0.14.1\chromedriver.exe",
@@ -392,6 +393,8 @@ class KJ:
                 # 公司90天成交量                //*[@id="10811813010580"]/div/div[2]/div[1]/div/div[1]/div[1]/div/div/div/ul/li[2]/div
                 print(obj.scrape_item_by_path('//*[@id="1081181308831"]/div/div/div[2]/div[1]/div/div[3]/div[1]/div[3]/span[2]').text)
         
+        # 详情页数据入库
+        pass
                                         
 if __name__ == '__main__':
     obj=KJ()
