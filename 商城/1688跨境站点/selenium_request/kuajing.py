@@ -4,6 +4,18 @@ import time
 import json
 import pymysql
 from kuajing_detail import ParseLink
+from concurrent.futures import ThreadPoolExecutor,ProcessPoolExecutor
+import queue
+# 重新封装线程池类
+class ThreadPoolExecutor(ThreadPoolExecutor):
+    """
+    重写线程池修改队列数
+    """
+    def __init__(self, max_workers=None, thread_name_prefix=''):
+        super().__init__(max_workers, thread_name_prefix)
+        # 队列大小为最大线程数的两倍
+        self._work_queue = queue.Queue(self._max_workers * 2)
+threadPool=ThreadPoolExecutor(max_workers=3)
 # 基于requests的方案
 # https://blog.csdn.net/weixin_42216028/article/details/107701421
 from selenium.webdriver.common.by import By
@@ -257,7 +269,7 @@ class KJ:
             # 第一类是hot 
             resp=self.get_goods_list(cateLevel=cateLevel,cateId=cateId,pageNo=1,rankType="hot")
             if resp!={}:
-                totalPage=int(resp["page"]["total"]/resp["page"]["pageSize"] )
+                totalPage=int(resp["page"]["total"]/resp["page"]["pageSize"])
                 for pageNo in range(1,totalPage+1):
                     time.sleep(0.3)
                     try:
@@ -379,7 +391,8 @@ class KJ:
             rank=commodItem[2]
             # print(commodId,commodUrl)
             # 这个地方可以考虑多线程
-            self.parse_detail(commodId=commodId,commodUrl=commodUrl,cookies=cookies,rank=rank,taskId=taskId)
+            threadPool.submit(self.parse_detail,commodId,commodUrl,cookies,rank,taskId)
+            #self.parse_detail(commodId=commodId,commodUrl=commodUrl,cookies=cookies,rank=rank,taskId=taskId)
     # pass exit quit   
     def parse_detail(self,commodId:int,commodUrl:str,cookies:list,rank:int,taskId:int)->None:
         obj=ParseLink(url="%s"%commodUrl,
