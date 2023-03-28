@@ -254,7 +254,7 @@ class KJ:
     
     # 定义一个获取商品信息表的方法
     def get_commodity(self,taskId):
-        result=self.select_mysql("SELECT commod.id,commod.offer_url,commod.rank FROM 1688_kj_commodity commod where id NOT IN (SELECT commodity_id FROM 1688_kj_commodity_detail ) and task_id='%s'"%taskId)
+        result=self.select_mysql("SELECT commod.id,commod.offer_url,commod.rank FROM 1688_kj_commodity commod where id NOT IN (SELECT commodity_id FROM 1688_kj_commodity_detail ) and task_id='%s' order by commod.rank"%taskId)
         return result
     
     # 定义一个保存到商品详情表的方法

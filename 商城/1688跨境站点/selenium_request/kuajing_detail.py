@@ -20,7 +20,7 @@ class ParseLink:
                 cookies:list,
                 executablePath:str,
                 sourceUrl:str,
-                timeOut:int=5,
+                timeOut:int=10,
                 EnableLinuxRoot=False,
                 Enableincogniton=False,
                 EnableHeadless=False,
