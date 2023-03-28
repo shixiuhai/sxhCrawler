@@ -250,7 +250,79 @@
   		) table1_2 
   	) tabl1_2_3
   
-  ON table1.cate_id=tabl1_2_3.cate_id)  table_last where table_last.task_id=7;
+  ON table1.cate_id=tabl1_2_3.cate_id)  table_last where table_last.task_id=17
+  
+  
+  SELECT
+  	commod.id,
+  	commod.offer_url 
+  FROM
+  	1688_kj_commodity commod 
+  WHERE
+  	id NOT IN ( SELECT commodity_id FROM 1688_kj_commodity_detail ) 
+  	AND task_id = 17
+  -- 	删除总数量小于5页的商品信息
+  DELETE from 1688_kj_commodity   WHERE total_page<=5;
+  
+  --  删除食品酒水和餐饮生鲜这两大类
+  delete from 1688_kj_commodity where cate_id in (
+  
+  select table_commodity.cate_id from (select table_last.* from (SELECT
+    tabl1_2_3.one_cate_name,
+  	tabl1_2_3.two_cate_name,
+  	tabl1_2_3.three_cate_name,
+  	table1.*
+  FROM
+  	1688_kj_commodity table1
+  	LEFT JOIN (
+  	SELECT
+  		table1_2_3.* 
+  	FROM
+  		(
+  			SELECT-- 	针对cate_id去重不知道原因为什么
+  			DISTINCT ( b.cate_id ),
+  			b.one_cate_name,
+  			b.two_cate_name,
+  			b.three_cate_name 
+  		FROM
+  			(
+  			SELECT
+  				table1.cate_name one_cate_name,
+  				table1_3.two_cate_name,
+  				table1_3.three_cate_name,-- 最后一级的cate_id
+  				table1_3.cate_id 
+  			FROM
+  				( SELECT id, cate_name, cate_id, cate_level, parent_id FROM 1688_kj_commodity_index ) table1
+  				INNER JOIN (
+  				SELECT
+  					table1.cate_name two_cate_name,
+  					table3.cate_name three_cate_name,
+  					table1.parent_id two_parent_id,-- 	这个cate_id 是最后一级的cate_id
+  					table3.cate_id 
+  				FROM
+  					( SELECT id, cate_name, cate_id, cate_level, parent_id FROM 1688_kj_commodity_index ) table1
+  					INNER JOIN ( SELECT id, cate_name, cate_id, cate_level, parent_id FROM 1688_kj_commodity_index WHERE cate_id NOT IN ( SELECT parent_id FROM 1688_kj_commodity_index ) AND cate_level = 3 ) table3 ON table3.parent_id = table1.cate_id 
+  				) table1_3 ON table1_3.two_parent_id = table1.cate_id 
+  			) b 
+  		) table1_2_3 UNION
+  	SELECT
+  		table1_2.* 
+  	FROM
+  		(
+  			SELECT-- 	这个cate_id 是最后一级的cate_id
+  			table3.cate_id,
+  			table1.cate_name one_cate_name,
+  			table3.cate_name two_cate_name,
+  			'' three_cate_name 
+  		FROM
+  			( SELECT id, cate_name, cate_id, cate_level, parent_id FROM 1688_kj_commodity_index ) table1
+  			INNER JOIN ( SELECT id, cate_name, cate_id, cate_level, parent_id FROM 1688_kj_commodity_index WHERE cate_id NOT IN ( SELECT parent_id FROM 1688_kj_commodity_index ) AND cate_level = 2 ) table3 ON table3.parent_id = table1.cate_id 
+  		) table1_2 
+  	) tabl1_2_3
+  
+  ON table1.cate_id=tabl1_2_3.cate_id)  table_last where table_last.one_cate_name="食品酒水" or table_last.one_cate_name="餐饮生鲜")  table_commodity
+  
+  ) 
   
   ```
 
