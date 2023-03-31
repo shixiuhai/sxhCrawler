@@ -20,7 +20,7 @@ class ParseLink:
                 cookies:list,
                 executablePath:str,
                 sourceUrl:str,
-                timeOut:int=5,
+                timeOut:int=10,
                 EnableLinuxRoot=False,
                 Enableincogniton=False,
                 EnableHeadless=False,
@@ -166,6 +166,8 @@ class ParseLink:
 
 
 if __name__ == '__main__':
+    
+    
     print((urlparse("https://detail.1688.com/offer/699297425649.html").scheme))
     print("开始")
     count=1
