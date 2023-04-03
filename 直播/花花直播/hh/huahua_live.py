@@ -1,6 +1,7 @@
 import json
 import requests
 import time
+import schedule
 class HH:
     def __init__(self) -> None:
         self.cookies = {
@@ -55,8 +56,13 @@ class HH:
         #    f.write(returnList)
         with open(path+"/%s"%fileName,'w',encoding='utf-8') as f:
             f.write(returnList)
-            
-if __name__ == "__main__":
+def job():
     obj=HH()
     # obj.get_anchor
     obj.writeAnchorTxt(obj.get_anchor)
+schedule.every(5).minutes.do(job)         
+if __name__ == "__main__":
+    print("开启定时任务")
+    while True:
+        schedule.run_pending()# 后台运行
+    
