@@ -6,6 +6,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "调试字符串数量统计",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            // 代码运行目录
+            "cwd": "${workspaceFolder}/shangyyuan/count_str",
+            // 解释器 
+            "python": "${workspaceFolder}/shangyyuan/count_str/str_env/Scripts/python.exe"
+        },
+        {
             "name": "cookie池登陆: selenium_request",
             "type": "python",
             "request": "launch",
