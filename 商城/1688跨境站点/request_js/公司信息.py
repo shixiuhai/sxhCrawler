@@ -1,4 +1,21 @@
 import requests
+import execjs
+import json
+def getSign(cookies:str,requestData:dict)->type:
+        # 调用js
+        with open('get_sign.js', 'r', encoding='UTF-8') as f:
+            js_code = f.read()
+            context = execjs.compile(js_code)
+            result = context.call("getSign",json.dumps(requestData),cookies).split("_")
+            # print(result)
+            sign=result[0]
+            t=result[1]
+        return (sign,t)
+def dicToStrCookies(broCookies)->str:
+        strCookies=""
+        for key in broCookies:
+            strCookies=strCookies+(key+"="+broCookies[key]+";")
+        return strCookies[:-1]
 
 cookies = {
     'ali_ab': '111.2.91.38.1678161716466.4',
@@ -41,11 +58,14 @@ headers = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
 }
 
+data='{"componentKey":"wp_pc_shop_basic_info","params":"{\\"memberId\\":\\"b2b-3417629197bf224\\"}"}'
+sign,t = getSign(dicToStrCookies(cookies),data)
+
 params = {
     'jsv': '2.4.11',
     'appKey': '12574478',
-    't': '1679382065844',
-    'sign': '12203cd04042d62d54aee4aedf4a7765',
+    't': '%s'%t,
+    'sign': '%s'%sign,
     'api': 'mtop.alibaba.alisite.cbu.server.ModuleAsyncService',
     'v': '1.0',
     'type': 'jsonp',
@@ -53,7 +73,36 @@ params = {
     'dataType': 'jsonp',
     'timeout': '10000',
     'callback': 'mtopjsonp4',
-    'data': '{"componentKey":"wp_pc_shop_basic_info","params":"{\\"memberId\\":\\"b2b-3417629197bf224\\"}"}',
+    'data': data,
+}
+
+
+response = requests.get(
+    'https://h5api.m.1688.com/h5/mtop.alibaba.alisite.cbu.server.moduleasyncservice/1.0/',
+    params=params,
+    cookies=cookies,
+    headers=headers,
+)
+print(response.text)
+cookies['_m_h5_tk']=response.cookies['_m_h5_tk']
+print(response.cookies)
+cookies['_m_h5_tk_enc']=response.cookies['_m_h5_tk_enc']
+                # 重新获取sign和t参数
+sign,t = getSign(dicToStrCookies(cookies),data)
+
+params = {
+    'jsv': '2.4.11',
+    'appKey': '12574478',
+    't': '%s'%t,
+    'sign': '%s'%sign,
+    'api': 'mtop.alibaba.alisite.cbu.server.ModuleAsyncService',
+    'v': '1.0',
+    'type': 'jsonp',
+    'valueType': 'string',
+    'dataType': 'jsonp',
+    'timeout': '10000',
+    'callback': 'mtopjsonp4',
+    'data': data,
 }
 
 response = requests.get(
@@ -62,3 +111,4 @@ response = requests.get(
     cookies=cookies,
     headers=headers,
 )
+print(response.text)
