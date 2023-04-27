@@ -6,7 +6,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "调试字符串数量统计",
+            "name": "调试字符串数量计",
             "type": "python",
             "request": "launch",
             "program": "${file}",

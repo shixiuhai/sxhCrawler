@@ -1,0 +1,54 @@
+Thu 27 Apr 2023 18:56:56 service.py DEBUG Started executable: `C:\Users\15256\Documents\Redis-x64-5.0.14.1\chromedriver.exe` in a child process with pid: 19100
+Thu 27 Apr 2023 18:56:57 remote_connection.py DEBUG POST http://localhost:4934/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "pageLoadStrategy": "normal", "goog:chromeOptions": {"excludeSwitches": ["enable-automation", "enable-logging"], "extensions": [], "args": ["--no-sandbox", "--disable-blink-features=AutomationControlled"]}}}}
+Thu 27 Apr 2023 18:56:57 connectionpool.py DEBUG Starting new HTTP connection (1): localhost:4934
+Thu 27 Apr 2023 18:56:58 connectionpool.py DEBUG http://localhost:4934 "POST /session HTTP/1.1" 200 858
+Thu 27 Apr 2023 18:56:58 remote_connection.py DEBUG Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"112.0.5615.138","chrome":{"chromedriverVersion":"111.0.5563.64 (c710e93d5b63b7095afe8c2c17df34408078439d-refs/branch-heads/5563@{#995})","userDataDir":"C:\\Users\\15256\\AppData\\Local\\Temp\\scoped_dir19100_420330225"},"goog:chromeOptions":{"debuggerAddress":"localhost:4940"},"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"windows","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"04a4c1d2032657faddc9e354900d8cb1"}} | headers=HTTPHeaderDict({'Content-Length': '858', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Thu 27 Apr 2023 18:56:58 remote_connection.py DEBUG Finished Request
+Thu 27 Apr 2023 18:56:58 remote_connection.py DEBUG POST http://localhost:4934/session/04a4c1d2032657faddc9e354900d8cb1/url {"url": "https://www.yiwugo.com/"}
+Thu 27 Apr 2023 18:57:04 connectionpool.py DEBUG http://localhost:4934 "POST /session/04a4c1d2032657faddc9e354900d8cb1/url HTTP/1.1" 200 14
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Finished Request
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG POST http://localhost:4934/session/04a4c1d2032657faddc9e354900d8cb1/cookie {"cookie": {"domain": ".yiwugo.com", "httpOnly": true, "name": "JSESSIONID", "path": "/", "sameSite": "Lax", "secure": false, "value": "78AEFCB06FDB9845053D0FEF90276DA7"}}
+Thu 27 Apr 2023 18:57:04 connectionpool.py DEBUG http://localhost:4934 "POST /session/04a4c1d2032657faddc9e354900d8cb1/cookie HTTP/1.1" 200 14
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Finished Request
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG POST http://localhost:4934/session/04a4c1d2032657faddc9e354900d8cb1/cookie {"cookie": {"domain": ".yiwugo.com", "httpOnly": false, "name": "yiwgugouloginid", "path": "/", "sameSite": "Lax", "secure": false, "value": "15256728901"}}
+Thu 27 Apr 2023 18:57:04 connectionpool.py DEBUG http://localhost:4934 "POST /session/04a4c1d2032657faddc9e354900d8cb1/cookie HTTP/1.1" 200 14
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Finished Request
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG POST http://localhost:4934/session/04a4c1d2032657faddc9e354900d8cb1/cookie {"cookie": {"domain": ".yiwugo.com", "httpOnly": false, "name": "SERVERID", "path": "/", "sameSite": "Lax", "secure": false, "value": "dad2d0e830de06a229275c9cdfd04373|1682592611|1682592588"}}
+Thu 27 Apr 2023 18:57:04 connectionpool.py DEBUG http://localhost:4934 "POST /session/04a4c1d2032657faddc9e354900d8cb1/cookie HTTP/1.1" 200 14
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Finished Request
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG POST http://localhost:4934/session/04a4c1d2032657faddc9e354900d8cb1/cookie {"cookie": {"domain": ".yiwugo.com", "httpOnly": false, "name": "c_u_i", "path": "/", "sameSite": "Lax", "secure": false, "value": "35a1e99fd17b6e48ce761d4dfde29e32"}}
+Thu 27 Apr 2023 18:57:04 connectionpool.py DEBUG http://localhost:4934 "POST /session/04a4c1d2032657faddc9e354900d8cb1/cookie HTTP/1.1" 200 14
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Finished Request
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG POST http://localhost:4934/session/04a4c1d2032657faddc9e354900d8cb1/cookie {"cookie": {"domain": ".yiwugo.com", "httpOnly": false, "name": "yiwugouid", "path": "/", "sameSite": "Lax", "secure": false, "value": "15256728901"}}
+Thu 27 Apr 2023 18:57:04 connectionpool.py DEBUG http://localhost:4934 "POST /session/04a4c1d2032657faddc9e354900d8cb1/cookie HTTP/1.1" 200 14
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Finished Request
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG POST http://localhost:4934/session/04a4c1d2032657faddc9e354900d8cb1/cookie {"cookie": {"domain": ".yiwugo.com", "httpOnly": false, "name": "ZeiJ_64d8_auth", "path": "/", "sameSite": "Lax", "secure": false, "value": "df76ZIqPqkJiMfI9THfSWnkz7QwWcP3EmjF7BLL60zSBFgD8Tr6cgEzkf%2FG5HgNeF2IAjykZaJj1P3Q8Sj91LLWY2be96w"}}
+Thu 27 Apr 2023 18:57:04 connectionpool.py DEBUG http://localhost:4934 "POST /session/04a4c1d2032657faddc9e354900d8cb1/cookie HTTP/1.1" 200 14
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Finished Request
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG POST http://localhost:4934/session/04a4c1d2032657faddc9e354900d8cb1/cookie {"cookie": {"domain": ".yiwugo.com", "httpOnly": false, "name": "nick", "path": "/", "sameSite": "Lax", "secure": false, "value": "%E4%BA%A6%E7%9F%A5"}}
+Thu 27 Apr 2023 18:57:04 connectionpool.py DEBUG http://localhost:4934 "POST /session/04a4c1d2032657faddc9e354900d8cb1/cookie HTTP/1.1" 200 14
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Finished Request
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG POST http://localhost:4934/session/04a4c1d2032657faddc9e354900d8cb1/cookie {"cookie": {"domain": ".yiwugo.com", "httpOnly": false, "name": "ZeiJ_64d8_saltkey", "path": "/", "sameSite": "Lax", "secure": false, "value": "GE1DpMZ2"}}
+Thu 27 Apr 2023 18:57:04 connectionpool.py DEBUG http://localhost:4934 "POST /session/04a4c1d2032657faddc9e354900d8cb1/cookie HTTP/1.1" 200 14
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Finished Request
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG POST http://localhost:4934/session/04a4c1d2032657faddc9e354900d8cb1/cookie {"cookie": {"domain": ".yiwugo.com", "httpOnly": true, "name": "yiwugouuauth", "path": "/", "sameSite": "Lax", "secure": false, "value": "df76DQDuvo/sdzfYGhzlqGpAcubx8Cr9rmTWlWI8r0sM+4KDNOpNRROMsDS6pbz1e9qMbPBnYNQ6CNOsctqZmtf3P0bh4w"}}
+Thu 27 Apr 2023 18:57:04 connectionpool.py DEBUG http://localhost:4934 "POST /session/04a4c1d2032657faddc9e354900d8cb1/cookie HTTP/1.1" 200 14
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Finished Request
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG POST http://localhost:4934/session/04a4c1d2032657faddc9e354900d8cb1/cookie {"cookie": {"domain": ".yiwugo.com", "httpOnly": true, "name": "u_c_c_a", "path": "/", "sameSite": "Lax", "secure": false, "value": "9557DfKWLEBl2RJURK1uYxJtgNTkBne71M9JV742F9UHzBhR7SsHdpAVD0XGEt+mfYRq3JKeP4NCtGDAiQ"}}
+Thu 27 Apr 2023 18:57:04 connectionpool.py DEBUG http://localhost:4934 "POST /session/04a4c1d2032657faddc9e354900d8cb1/cookie HTTP/1.1" 200 14
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Thu 27 Apr 2023 18:57:04 remote_connection.py DEBUG Finished Request
+Thu 27 Apr 2023 18:57:07 remote_connection.py DEBUG POST http://localhost:4934/session/04a4c1d2032657faddc9e354900d8cb1/refresh {}
+Thu 27 Apr 2023 18:57:09 connectionpool.py DEBUG http://localhost:4934 "POST /session/04a4c1d2032657faddc9e354900d8cb1/refresh HTTP/1.1" 200 14
+Thu 27 Apr 2023 18:57:09 remote_connection.py DEBUG Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+Thu 27 Apr 2023 18:57:09 remote_connection.py DEBUG Finished Request
