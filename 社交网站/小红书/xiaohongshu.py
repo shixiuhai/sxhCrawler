@@ -61,16 +61,17 @@ def feed(source_note_id):
         js = f.read()
     crt = execjs.compile(js)
     data = '{"source_note_id":"%s"}'%source_note_id
-    print(data)
+    # print(data)
     result = crt.call('sign','/api/sns/web/v1/feed',{"source_note_id":"%s"%source_note_id})
     x_s = result["X-s"]
     x_t = result["X-t"]
     headers["x-s"]=x_s
     headers["x-t"]=str(x_t)
-    print(headers)
+    # print(headers)
     feed = 'https://edith.xiaohongshu.com/api/sns/web/v1/feed'
-    print(requests.post(url=feed, data=data, headers=headers).text)
+    return requests.post(url=feed, data=data, headers=headers).json()
 
 if __name__ == '__main__':
     #print(register_session())
-    feed("64106122000000001203d2fb")
+    result=feed("64106122000000001203d2fb")
+    print(result)
