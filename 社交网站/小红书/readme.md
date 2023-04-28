@@ -11,7 +11,7 @@
 
 * 采用了PyexecJs模拟js运算 pip3 install  PyExecJS 
 
-* 安装部署了nodejs服务 npm install crypto
+* 安装部署了nodejs服务 npm install crypto-js
 
 ### 补充说明
 * 主要扣下来了网页的sign函数
