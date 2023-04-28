@@ -1,4 +1,5 @@
 const crypto = require('crypto'); //引入crypto加密模块
+// const crypto = require('crypto-js'); //引入crypto加密模块
 function MD5 (text) {
     return crypto.createHash('md5').update(text).digest('hex');
 }
