@@ -676,7 +676,7 @@ function sign(e, t) {
     }
 }
 
-// console.log(sign('/api/sns/web/v1/feed','{"source_note_id":"643a7b950000000027010ebf"}'))
+console.log(sign('/api/sns/web/v1/feed','{"source_note_id":"643a7b950000000027010ebf"}'))
 // console.log( a0_0x5b83(158,1294))
 // console.log(a0_0x34ec01(888, 1294))
 // sYTG12ML0Y5bOiTG0jd6sjdJOBALsgsLsg9+OgOUsjc3
